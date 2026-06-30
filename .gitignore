@@ -1,0 +1,11 @@
+# Python Virtual Environment
+backend/venv/
+venv/
+__pycache__/
+
+# Mac System Files
+.DS_Store
+
+# Future Frontend
+node_modules/
+.next/
