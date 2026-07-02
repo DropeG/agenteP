@@ -28,14 +28,14 @@ A full-stack framework with built-in page routing and server component rendering
 
 ## 🧠 2. Backend & Agent Engine
 
-### Option A: Python (FastAPI + LangGraph/Custom Agent Loop) — 🌟 Recommended
+### Option A: Python (FastAPI + Antigravity Bridge / Custom Agent Loop) — 🌟 Recommended
 FastAPI is an asynchronous web framework, and Python is the standard language for AI/Agent development.
 *   **Pros:**
-    *   **Ecosystem dominance:** Direct access to all modern LLM/Agent frameworks (LangGraph, LiteLLM, crewAI) and AI tools.
+    *   **Zero operational LLM cost:** By using a local bridge (`agents/io/`) and delegating the LLM reasoning to Antigravity (the coding assistant), the system requires zero paid API accounts and no credit card registrations.
     *   **Academic Document Processing:** Python has superior libraries for parsing slides, lecture PDFs, and syllabus documents (e.g., `PyPDF`, `unstructured`, `Marker`).
     *   **Safe Code Sandboxing:** Very easy to create subprocesses or isolated Python runs to test agent-generated code before outputting it.
 *   **Cons:**
-    *   Virtual environments and dependency management (pip/poetry) require separate configuration from the frontend.
+    *   **Interactive loop requirement:** It relies on the user/assistant interaction loop to resolve task tickets during execution, rather than fully automated independent cloud execution.
 
 ### Option B: Node.js (Express or NestJS + LangChain.js)
 A JavaScript backend runtime.

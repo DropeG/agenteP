@@ -15,6 +15,8 @@ Este es el repositorio base para **AgenteP**, un portal web con agentes autónom
     *   Modelos de datos (Cursos, Tareas, Logs): **[models/](file:///Users/pedro/Documents/UC/agenteP/backend/app/models/)**
     *   Integración con Canvas UC: **[canvas.py](file:///Users/pedro/Documents/UC/agenteP/backend/app/integrations/canvas.py)**
 *   **`agents/`**: Lógica de los agentes autónomos de resolución y autoprogramación.
+    *   Script del worker local: **[worker.py](file:///Users/pedro/Documents/UC/agenteP/agents/core/worker.py)**
+    *   Buzón de tareas puente: **[io/](file:///Users/pedro/Documents/UC/agenteP/agents/io/)**
     *   Librerías necesarias: **[requirements.txt](file:///Users/pedro/Documents/UC/agenteP/agents/requirements.txt)**
 
 ---
@@ -26,7 +28,7 @@ Crea un archivo `.env` en la raíz del proyecto basándote en la plantilla:
 ```bash
 cp .env.example .env
 ```
-Y edítalo con tus claves de Canvas UC y Gemini/OpenAI:
+Y edítalo con tus claves de Canvas UC (las API keys de LLMs son opcionales/no requeridas ya que usamos a Antigravity como motor de resolución gratuito):
 *   🔑 **[.env.example](file:///Users/pedro/Documents/UC/agenteP/.env.example)**
 
 ### 2. Frontend (React + Vite)
@@ -57,8 +59,18 @@ Para iniciar el servidor de la API:
    *   *Nota: La API correrá en [http://localhost:8000](http://localhost:8000)*
    *   *Al iniciar por primera vez, se creará automáticamente el archivo de base de datos local `database.db` en la carpeta `backend/`.*
 
+### 4. Bucle del Agente (Worker local)
+Para arrancar el agente sin consumir APIs de pago:
+1. Corre el worker local:
+   ```bash
+   python agents/core/worker.py
+   ```
+2. Cuando el worker detecte una tarea pendiente, la escribirá en `agents/io/pending_task.json` y se quedará esperando.
+3. Pídele a **Antigravity** (en este chat) que resuelva la tarea en ese archivo. Una vez que la resuelva, el worker la marcará como completada de forma automática.
+
 ---
 
 ## 📖 Documentación del Proyecto
-*   **[PROJECT_CONTEXT.md](file:///Users/pedro/Documents/UC/agenteP/PROJECT_CONTEXT.md)**: Visión, features clave y plan de ruta del proyecto (en inglés).
-*   **[ARCHITECTURE_OPTIONS.md](file:///Users/pedro/Documents/UC/agenteP/ARCHITECTURE_OPTIONS.md)**: Opciones de diseño, pros, contras y justificación del stack tecnológico.
+*   **[vision_and_features.md](file:///Users/pedro/Documents/UC/agenteP/docs/context/vision_and_features.md)**: Visión, features clave y plan de ruta del proyecto.
+*   **[technical_stack.md](file:///Users/pedro/Documents/UC/agenteP/docs/context/technical_stack.md)**: Contexto del proyecto y stack técnico detallado.
+*   **[options.md](file:///Users/pedro/Documents/UC/agenteP/docs/architecture/options.md)**: Opciones de diseño, pros, contras y justificación del stack tecnológico.

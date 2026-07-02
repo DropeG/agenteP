@@ -1,0 +1,209 @@
+[
+  {
+    "id": "1778121537908",
+    "points": 2.0,
+    "description": "P31 Story points",
+    "long_description": "Da una definición correcta de story point, indica la existencia de una historia de referencia que se usa comparandola con el resto y que se llega a una asignación final para cada historia por consenso.",
+    "criterion_use_range": false,
+    "ratings": [
+      {
+        "id": "2",
+        "points": 2.0,
+        "description": "Se excede",
+        "long_description": ""
+      },
+      {
+        "id": "1",
+        "points": 1.5,
+        "description": "Dominio",
+        "long_description": ""
+      },
+      {
+        "id": "3",
+        "points": 1.0,
+        "description": "Cerca",
+        "long_description": ""
+      },
+      {
+        "id": "4",
+        "points": 0.5,
+        "description": "Debajo",
+        "long_description": ""
+      },
+      {
+        "id": "5",
+        "points": 0.0,
+        "description": "Sin evidencia",
+        "long_description": ""
+      }
+    ]
+  },
+  {
+    "id": "1778121641407",
+    "points": 2.0,
+    "description": "P32 Historia de usuario",
+    "long_description": "Presenta estructura y partes correctas, define condiciones de aceptación claras y verificables, es una unidad funcional y está escrita desde el punto de vista del usuario.",
+    "criterion_use_range": false,
+    "ratings": [
+      {
+        "id": "_4935",
+        "points": 2.0,
+        "description": "Se excede",
+        "long_description": ""
+      },
+      {
+        "id": "_6051",
+        "points": 1.5,
+        "description": "Dominio",
+        "long_description": ""
+      },
+      {
+        "id": "_8648",
+        "points": 1.0,
+        "description": "Cerca",
+        "long_description": ""
+      },
+      {
+        "id": "_3743",
+        "points": 0.5,
+        "description": "Debajo",
+        "long_description": ""
+      },
+      {
+        "id": "_916",
+        "points": 0.0,
+        "description": "Sin evidencia",
+        "long_description": ""
+      }
+    ]
+  },
+  {
+    "id": "1778121730156",
+    "points": 2.0,
+    "description": "P33 Srum",
+    "long_description": "Indica cual es el entregable correcto, menciona las 4 reuniones, señala el rol del cliente y lo hace en &lt;= 8 líneas.",
+    "criterion_use_range": false,
+    "ratings": [
+      {
+        "id": "_7946",
+        "points": 2.0,
+        "description": "Se excede",
+        "long_description": ""
+      },
+      {
+        "id": "_2474",
+        "points": 1.5,
+        "description": "Dominio",
+        "long_description": ""
+      },
+      {
+        "id": "_1048",
+        "points": 1.0,
+        "description": "Cerca",
+        "long_description": ""
+      },
+      {
+        "id": "_6835",
+        "points": 0.5,
+        "description": "Debajo",
+        "long_description": ""
+      },
+      {
+        "id": "_1335",
+        "points": 0.0,
+        "description": "Sin evidencia",
+        "long_description": ""
+      }
+    ]
+  },
+  {
+    "id": "1778121858206",
+    "points": 4.0,
+    "description": "P34 Puntos de función",
+    "long_description": "Aplica bien fórmulas de UFP, VAF y AFP, obteniendo los valores correctos.",
+    "criterion_use_range": false,
+    "ratings": [
+      {
+        "id": "_627",
+        "points": 4.0,
+        "description": "Se excede",
+        "long_description": ""
+      },
+      {
+        "id": "_1857",
+        "points": 3.0,
+        "description": "Dominio",
+        "long_description": ""
+      },
+      {
+        "id": "_5665",
+        "points": 2.0,
+        "description": "Cerca",
+        "long_description": ""
+      },
+      {
+        "id": "_5000",
+        "points": 1.0,
+        "description": "Debajo",
+        "long_description": ""
+      },
+      {
+        "id": "_8402",
+        "points": 0.0,
+        "description": "Sin evidencia",
+        "long_description": ""
+      }
+    ]
+  },
+  {
+    "id": "1778122127305",
+    "points": 5.0,
+    "description": "P35 Requests",
+    "long_description": "Identifica y explica el uso correcto de las requests GET y POST",
+    "criterion_use_range": false,
+    "ratings": [
+      {
+        "id": "1778121955775",
+        "points": 5.0,
+        "description": "Se excede",
+        "long_description": ""
+      },
+      {
+        "id": "_6955",
+        "points": 4.0,
+        "description": "Muy bien",
+        "long_description": ""
+      },
+      {
+        "id": "_166",
+        "points": 3.25,
+        "description": "Dominio",
+        "long_description": ""
+      },
+      {
+        "id": "1778121967973",
+        "points": 2.5,
+        "description": "Regular",
+        "long_description": ""
+      },
+      {
+        "id": "_3688",
+        "points": 1.5,
+        "description": "Cerca",
+        "long_description": ""
+      },
+      {
+        "id": "1778122056105",
+        "points": 0.75,
+        "description": "Debajo",
+        "long_description": ""
+      },
+      {
+        "id": "_5019",
+        "points": 0.0,
+        "description": "Sin evidencia",
+        "long_description": ""
+      }
+    ]
+  }
+]

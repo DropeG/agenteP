@@ -1,0 +1,1242 @@
+[
+  {
+    "id": 1,
+    "task_type": "dummy_skill",
+    "prompt": "Create a file named hello_world.txt inside agents/io/ with the text 'Agente P exists!'",
+    "status": "completed",
+    "result": {
+      "status": "success",
+      "message": "Created hello_world.txt with the text 'Agente P exists!'"
+    }
+  },
+  {
+    "id": "1170539",
+    "course_code": "IIC2143",
+    "course_name": "Ingenieria de Software",
+    "task_type": "evaluate_announcement",
+    "title": "Formulario de Coevaluación Sprint 1",
+    "announcement_path": "agents/workspace/IIC2143/announcements/formulario_de_coevaluación_sprint_1.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/IIC2143/announcements/formulario_de_coevaluación_sprint_1.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1170649",
+    "course_code": "IIC2143",
+    "course_name": "Ingenieria de Software",
+    "task_type": "evaluate_announcement",
+    "title": "Pauta I1",
+    "announcement_path": "agents/workspace/IIC2143/announcements/pauta_i1.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/IIC2143/announcements/pauta_i1.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1172700",
+    "course_code": "IIC2143",
+    "course_name": "Ingenieria de Software",
+    "task_type": "evaluate_announcement",
+    "title": "Pauta I1 Actualizada",
+    "announcement_path": "agents/workspace/IIC2143/announcements/pauta_i1_actualizada.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/IIC2143/announcements/pauta_i1_actualizada.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1174065",
+    "course_code": "IIC2143",
+    "course_name": "Ingenieria de Software",
+    "task_type": "evaluate_announcement",
+    "title": "🛠️ Plazo extra sprint 2",
+    "announcement_path": "agents/workspace/IIC2143/announcements/_plazo_extra_sprint_2.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/IIC2143/announcements/_plazo_extra_sprint_2.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1176500",
+    "course_code": "IIC2143",
+    "course_name": "Ingenieria de Software",
+    "task_type": "evaluate_announcement",
+    "title": "🚀 Inicio Sprint 3",
+    "announcement_path": "agents/workspace/IIC2143/announcements/_inicio_sprint_3.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/IIC2143/announcements/_inicio_sprint_3.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1178685",
+    "course_code": "IIC2143",
+    "course_name": "Ingenieria de Software",
+    "task_type": "evaluate_announcement",
+    "title": "Formulario de Coevaluación Sprint 2",
+    "announcement_path": "agents/workspace/IIC2143/announcements/formulario_de_coevaluación_sprint_2.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/IIC2143/announcements/formulario_de_coevaluación_sprint_2.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1180991",
+    "course_code": "IIC2143",
+    "course_name": "Ingenieria de Software",
+    "task_type": "evaluate_announcement",
+    "title": "⭐️ Notas I1, recorrección y notas finales T0 ",
+    "announcement_path": "agents/workspace/IIC2143/announcements/_notas_i1_recorrección_y_notas_finales_t0_.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/IIC2143/announcements/_notas_i1_recorrección_y_notas_finales_t0_.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1183721",
+    "course_code": "IIC2143",
+    "course_name": "Ingenieria de Software",
+    "task_type": "evaluate_announcement",
+    "title": "Nuevo plazo recorrección y alternativas I1 💫",
+    "announcement_path": "agents/workspace/IIC2143/announcements/nuevo_plazo_recorrección_y_alternativas_i1_.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/IIC2143/announcements/nuevo_plazo_recorrección_y_alternativas_i1_.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1186647",
+    "course_code": "IIC2143",
+    "course_name": "Ingenieria de Software",
+    "task_type": "evaluate_announcement",
+    "title": "🗓️❗️ Mañana: Charlas profesionales en la C001 + retiro hojas de respuestas",
+    "announcement_path": "agents/workspace/IIC2143/announcements/_mañana_charlas_profesionales_en_la_c001_retiro_hojas_de_respuestas.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/IIC2143/announcements/_mañana_charlas_profesionales_en_la_c001_retiro_hojas_de_respuestas.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1189270",
+    "course_code": "IIC2143",
+    "course_name": "Ingenieria de Software",
+    "task_type": "evaluate_announcement",
+    "title": "🏎️ Fin proyecto ",
+    "announcement_path": "agents/workspace/IIC2143/announcements/_fin_proyecto_.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/IIC2143/announcements/_fin_proyecto_.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1192667",
+    "course_code": "IIC2143",
+    "course_name": "Ingenieria de Software",
+    "task_type": "evaluate_announcement",
+    "title": "Formulario de Coevaluación Sprint 3",
+    "announcement_path": "agents/workspace/IIC2143/announcements/formulario_de_coevaluación_sprint_3.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/IIC2143/announcements/formulario_de_coevaluación_sprint_3.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1192875",
+    "course_code": "IIC2143",
+    "course_name": "Ingenieria de Software",
+    "task_type": "evaluate_announcement",
+    "title": "🏁 Presentación Final y Fin del Proyecto",
+    "announcement_path": "agents/workspace/IIC2143/announcements/_presentación_final_y_fin_del_proyecto.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/IIC2143/announcements/_presentación_final_y_fin_del_proyecto.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1193749",
+    "course_code": "IIC2143",
+    "course_name": "Ingenieria de Software",
+    "task_type": "evaluate_announcement",
+    "title": "Recomendaciones presentaciones finales",
+    "announcement_path": "agents/workspace/IIC2143/announcements/recomendaciones_presentaciones_finales.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/IIC2143/announcements/recomendaciones_presentaciones_finales.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1194199",
+    "course_code": "IIC2143",
+    "course_name": "Ingenieria de Software",
+    "task_type": "evaluate_announcement",
+    "title": "Pauta simulacro I2",
+    "announcement_path": "agents/workspace/IIC2143/announcements/pauta_simulacro_i2.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/IIC2143/announcements/pauta_simulacro_i2.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1195988",
+    "course_code": "IIC2143",
+    "course_name": "Ingenieria de Software",
+    "task_type": "evaluate_announcement",
+    "title": "Ayudantía I2: sala B13 ⚡️",
+    "announcement_path": "agents/workspace/IIC2143/announcements/ayudantía_i2_sala_b13_.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/IIC2143/announcements/ayudantía_i2_sala_b13_.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1196942",
+    "course_code": "IIC2143",
+    "course_name": "Ingenieria de Software",
+    "task_type": "evaluate_announcement",
+    "title": "Salas I2 + Recorrección I1 💫✅",
+    "announcement_path": "agents/workspace/IIC2143/announcements/salas_i2_recorrección_i1_.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/IIC2143/announcements/salas_i2_recorrección_i1_.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1198636",
+    "course_code": "IIC2143",
+    "course_name": "Ingenieria de Software",
+    "task_type": "evaluate_announcement",
+    "title": "Decimas I2",
+    "announcement_path": "agents/workspace/IIC2143/announcements/decimas_i2.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/IIC2143/announcements/decimas_i2.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1199938",
+    "course_code": "IIC2143",
+    "course_name": "Ingenieria de Software",
+    "task_type": "evaluate_announcement",
+    "title": "Formulario Coevaluación Sprint 3 - Nuevo plazo",
+    "announcement_path": "agents/workspace/IIC2143/announcements/formulario_coevaluación_sprint_3_nuevo_plazo.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/IIC2143/announcements/formulario_coevaluación_sprint_3_nuevo_plazo.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1208872",
+    "course_code": "IIC2143",
+    "course_name": "Ingenieria de Software",
+    "task_type": "evaluate_announcement",
+    "title": "🎬 Cápsulas ejercicios para el examen",
+    "announcement_path": "agents/workspace/IIC2143/announcements/_cápsulas_ejercicios_para_el_examen.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/IIC2143/announcements/_cápsulas_ejercicios_para_el_examen.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1209707",
+    "course_code": "IIC2143",
+    "course_name": "Ingenieria de Software",
+    "task_type": "evaluate_announcement",
+    "title": "⭐️ Notas I2, recorrección (HASTA MAÑANA) y eximición",
+    "announcement_path": "agents/workspace/IIC2143/announcements/_notas_i2_recorrección_hasta_mañana_y_eximición.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/IIC2143/announcements/_notas_i2_recorrección_hasta_mañana_y_eximición.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1130582",
+    "course_code": "ICP0156",
+    "course_name": "Politica y Poder en Chile",
+    "task_type": "evaluate_announcement",
+    "title": "Bibliografía Unidad 2-1",
+    "announcement_path": "agents/workspace/ICP0156/announcements/bibliografía_unidad_2_1.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/ICP0156/announcements/bibliografía_unidad_2_1.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1141777",
+    "course_code": "ICP0156",
+    "course_name": "Politica y Poder en Chile",
+    "task_type": "evaluate_announcement",
+    "title": "Lectura de la próxima semana",
+    "announcement_path": "agents/workspace/ICP0156/announcements/lectura_de_la_próxima_semana.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/ICP0156/announcements/lectura_de_la_próxima_semana.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1145462",
+    "course_code": "ICP0156",
+    "course_name": "Politica y Poder en Chile",
+    "task_type": "evaluate_announcement",
+    "title": "Video de la clase de hoy",
+    "announcement_path": "agents/workspace/ICP0156/announcements/video_de_la_clase_de_hoy.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/ICP0156/announcements/video_de_la_clase_de_hoy.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1146323",
+    "course_code": "ICP0156",
+    "course_name": "Politica y Poder en Chile",
+    "task_type": "evaluate_announcement",
+    "title": "Ayudantía Prueba 1",
+    "announcement_path": "agents/workspace/ICP0156/announcements/ayudantía_prueba_1.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/ICP0156/announcements/ayudantía_prueba_1.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1148314",
+    "course_code": "ICP0156",
+    "course_name": "Politica y Poder en Chile",
+    "task_type": "evaluate_announcement",
+    "title": "Link ayudantía.",
+    "announcement_path": "agents/workspace/ICP0156/announcements/link_ayudantía.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/ICP0156/announcements/link_ayudantía.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1148391",
+    "course_code": "ICP0156",
+    "course_name": "Politica y Poder en Chile",
+    "task_type": "evaluate_announcement",
+    "title": "Grabación y PPT ayudantía.",
+    "announcement_path": "agents/workspace/ICP0156/announcements/grabación_y_ppt_ayudantía.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/ICP0156/announcements/grabación_y_ppt_ayudantía.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1156836",
+    "course_code": "ICP0156",
+    "course_name": "Politica y Poder en Chile",
+    "task_type": "evaluate_announcement",
+    "title": "Actividad de hoy (14 de abril)",
+    "announcement_path": "agents/workspace/ICP0156/announcements/actividad_de_hoy_14_de_abril.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/ICP0156/announcements/actividad_de_hoy_14_de_abril.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1158995",
+    "course_code": "ICP0156",
+    "course_name": "Politica y Poder en Chile",
+    "task_type": "evaluate_announcement",
+    "title": "Encuesta intermedia",
+    "announcement_path": "agents/workspace/ICP0156/announcements/encuesta_intermedia.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/ICP0156/announcements/encuesta_intermedia.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1164307",
+    "course_code": "ICP0156",
+    "course_name": "Politica y Poder en Chile",
+    "task_type": "evaluate_announcement",
+    "title": "Grupos y calendario trabajo final",
+    "announcement_path": "agents/workspace/ICP0156/announcements/grupos_y_calendario_trabajo_final.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/ICP0156/announcements/grupos_y_calendario_trabajo_final.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1167385",
+    "course_code": "ICP0156",
+    "course_name": "Politica y Poder en Chile",
+    "task_type": "evaluate_announcement",
+    "title": "Ayudantía Control 2",
+    "announcement_path": "agents/workspace/ICP0156/announcements/ayudantía_control_2.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/ICP0156/announcements/ayudantía_control_2.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1167555",
+    "course_code": "ICP0156",
+    "course_name": "Politica y Poder en Chile",
+    "task_type": "evaluate_announcement",
+    "title": "Informaciones sobre la próxima prueba y recorrección primera evaluación",
+    "announcement_path": "agents/workspace/ICP0156/announcements/informaciones_sobre_la_próxima_prueba_y_recorrección_primera_evaluación.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/ICP0156/announcements/informaciones_sobre_la_próxima_prueba_y_recorrección_primera_evaluación.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1169327",
+    "course_code": "ICP0156",
+    "course_name": "Politica y Poder en Chile",
+    "task_type": "evaluate_announcement",
+    "title": "Link ayudantía.",
+    "announcement_path": "agents/workspace/ICP0156/announcements/link_ayudantía.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/ICP0156/announcements/link_ayudantía.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1169826",
+    "course_code": "ICP0156",
+    "course_name": "Politica y Poder en Chile",
+    "task_type": "evaluate_announcement",
+    "title": "PPT y Grabación Ayudantía.",
+    "announcement_path": "agents/workspace/ICP0156/announcements/ppt_y_grabación_ayudantía.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/ICP0156/announcements/ppt_y_grabación_ayudantía.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1176686",
+    "course_code": "ICP0156",
+    "course_name": "Politica y Poder en Chile",
+    "task_type": "evaluate_announcement",
+    "title": "Asistencia",
+    "announcement_path": "agents/workspace/ICP0156/announcements/asistencia.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/ICP0156/announcements/asistencia.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1181110",
+    "course_code": "ICP0156",
+    "course_name": "Politica y Poder en Chile",
+    "task_type": "evaluate_announcement",
+    "title": "Clase Martes 26 de Mayo",
+    "announcement_path": "agents/workspace/ICP0156/announcements/clase_martes_26_de_mayo.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/ICP0156/announcements/clase_martes_26_de_mayo.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1184422",
+    "course_code": "ICP0156",
+    "course_name": "Politica y Poder en Chile",
+    "task_type": "evaluate_announcement",
+    "title": "Recorrección prueba 2 + Información de fechas",
+    "announcement_path": "agents/workspace/ICP0156/announcements/recorrección_prueba_2_información_de_fechas.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/ICP0156/announcements/recorrección_prueba_2_información_de_fechas.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1191510",
+    "course_code": "ICP0156",
+    "course_name": "Politica y Poder en Chile",
+    "task_type": "evaluate_announcement",
+    "title": "Informaciones próximas actividades",
+    "announcement_path": "agents/workspace/ICP0156/announcements/informaciones_próximas_actividades.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/ICP0156/announcements/informaciones_próximas_actividades.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1207684",
+    "course_code": "ICP0156",
+    "course_name": "Politica y Poder en Chile",
+    "task_type": "evaluate_announcement",
+    "title": "Notas tercera prueba",
+    "announcement_path": "agents/workspace/ICP0156/announcements/notas_tercera_prueba.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/ICP0156/announcements/notas_tercera_prueba.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1208944",
+    "course_code": "ICP0156",
+    "course_name": "Politica y Poder en Chile",
+    "task_type": "evaluate_announcement",
+    "title": "Notas presentaciones",
+    "announcement_path": "agents/workspace/ICP0156/announcements/notas_presentaciones.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/ICP0156/announcements/notas_presentaciones.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1209819",
+    "course_code": "ICP0156",
+    "course_name": "Politica y Poder en Chile",
+    "task_type": "evaluate_announcement",
+    "title": "Cambio de sala pruebas recuperativas",
+    "announcement_path": "agents/workspace/ICP0156/announcements/cambio_de_sala_pruebas_recuperativas.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/ICP0156/announcements/cambio_de_sala_pruebas_recuperativas.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "863566",
+    "course_code": "CUR",
+    "course_name": "Ruta Novata UC 2024",
+    "task_type": "evaluate_announcement",
+    "title": "¡Responde la Encuesta de Participación y gana premios increíbles! 🎁",
+    "announcement_path": "agents/workspace/CUR/announcements/responde_la_encuesta_de_participación_y_gana_premios_increíbles_.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/CUR/announcements/responde_la_encuesta_de_participación_y_gana_premios_increíbles_.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "867516",
+    "course_code": "CUR",
+    "course_name": "Ruta Novata UC 2024",
+    "task_type": "evaluate_announcement",
+    "title": "¡Recuerda que aún estás a tiempo de participar en la Encuesta de Participación Estudiantil! 🎯💬",
+    "announcement_path": "agents/workspace/CUR/announcements/recuerda_que_aún_estás_a_tiempo_de_participar_en_la_encuesta_de_participación_estudiantil_.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/CUR/announcements/recuerda_que_aún_estás_a_tiempo_de_participar_en_la_encuesta_de_participación_estudiantil_.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "875983",
+    "course_code": "CUR",
+    "course_name": "Ruta Novata UC 2024",
+    "task_type": "evaluate_announcement",
+    "title": "Conversa y comparte en la Jornada Novata de Diálogo 💬✨ ¡Inscripciones abiertas!",
+    "announcement_path": "agents/workspace/CUR/announcements/conversa_y_comparte_en_la_jornada_novata_de_diálogo_inscripciones_abiertas.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/CUR/announcements/conversa_y_comparte_en_la_jornada_novata_de_diálogo_inscripciones_abiertas.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "875995",
+    "course_code": "CUR",
+    "course_name": "Ruta Novata UC 2024",
+    "task_type": "evaluate_announcement",
+    "title": "¡Recuerda que aún estás a tiempo de participar en la Jornada Novata de Diálogo 2024! ✨💬",
+    "announcement_path": "agents/workspace/CUR/announcements/recuerda_que_aún_estás_a_tiempo_de_participar_en_la_jornada_novata_de_diálogo_2024_.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/CUR/announcements/recuerda_que_aún_estás_a_tiempo_de_participar_en_la_jornada_novata_de_diálogo_2024_.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "876000",
+    "course_code": "CUR",
+    "course_name": "Ruta Novata UC 2024",
+    "task_type": "evaluate_announcement",
+    "title": "🗣️ ¡Participa en la Jornada Novata de Diálogo! Últimos cupos disponibles",
+    "announcement_path": "agents/workspace/CUR/announcements/_participa_en_la_jornada_novata_de_diálogo_últimos_cupos_disponibles.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/CUR/announcements/_participa_en_la_jornada_novata_de_diálogo_últimos_cupos_disponibles.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "880312",
+    "course_code": "CUR",
+    "course_name": "Ruta Novata UC 2024",
+    "task_type": "evaluate_announcement",
+    "title": "¡Aún estás a tiempo para inscribirte en la Jornada Novata de Diálogo 2024! ✨",
+    "announcement_path": "agents/workspace/CUR/announcements/aún_estás_a_tiempo_para_inscribirte_en_la_jornada_novata_de_diálogo_2024_.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/CUR/announcements/aún_estás_a_tiempo_para_inscribirte_en_la_jornada_novata_de_diálogo_2024_.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "881958",
+    "course_code": "CUR",
+    "course_name": "Ruta Novata UC 2024",
+    "task_type": "evaluate_announcement",
+    "title": "¿Ya te enteraste del Día de la Integridad Académica 2024? 🎓",
+    "announcement_path": "agents/workspace/CUR/announcements/ya_te_enteraste_del_día_de_la_integridad_académica_2024_.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/CUR/announcements/ya_te_enteraste_del_día_de_la_integridad_académica_2024_.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "882653",
+    "course_code": "CUR",
+    "course_name": "Ruta Novata UC 2024",
+    "task_type": "evaluate_announcement",
+    "title": "📢 ¡Nuevo Módulo 8 en Ruta Novata: \"¿Cómo construimos comunidad?\" 🤝🌟",
+    "announcement_path": "agents/workspace/CUR/announcements/_nuevo_módulo_8_en_ruta_novata_cómo_construimos_comunidad_.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/CUR/announcements/_nuevo_módulo_8_en_ruta_novata_cómo_construimos_comunidad_.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "883959",
+    "course_code": "CUR",
+    "course_name": "Ruta Novata UC 2024",
+    "task_type": "evaluate_announcement",
+    "title": " ¡📢 Recuerda que esta semana tenemos Ruta Novata en patio! 🌿 Hoy nos vemos en Campus San Joaquín. 🎓✨ ¡Te esperamos! 🙌😊",
+    "announcement_path": "agents/workspace/CUR/announcements/_recuerda_que_esta_semana_tenemos_ruta_novata_en_patio_hoy_nos_vemos_en_campus_san_joaquín_te_esperamos_.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/CUR/announcements/_recuerda_que_esta_semana_tenemos_ruta_novata_en_patio_hoy_nos_vemos_en_campus_san_joaquín_te_esperamos_.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "881995",
+    "course_code": "CUR",
+    "course_name": "Ruta Novata UC 2024",
+    "task_type": "evaluate_announcement",
+    "title": "¡No te lo pierdas! Mañana inician actividades clave del Día de la Integridad Académica UC",
+    "announcement_path": "agents/workspace/CUR/announcements/no_te_lo_pierdas_mañana_inician_actividades_clave_del_día_de_la_integridad_académica_uc.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/CUR/announcements/no_te_lo_pierdas_mañana_inician_actividades_clave_del_día_de_la_integridad_académica_uc.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "885622",
+    "course_code": "CUR",
+    "course_name": "Ruta Novata UC 2024",
+    "task_type": "evaluate_announcement",
+    "title": "Invitación al Encuentro de las Culturas en la UC – ¡Celebra el Mes de la Interculturalidad con nosotros! 🌍🎶",
+    "announcement_path": "agents/workspace/CUR/announcements/invitación_al_encuentro_de_las_culturas_en_la_uc_celebra_el_mes_de_la_interculturalidad_con_nosotros_.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/CUR/announcements/invitación_al_encuentro_de_las_culturas_en_la_uc_celebra_el_mes_de_la_interculturalidad_con_nosotros_.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "885629",
+    "course_code": "CUR",
+    "course_name": "Ruta Novata UC 2024",
+    "task_type": "evaluate_announcement",
+    "title": "¡Hoy te esperamos en el Encuentro de las Culturas en la UC! 🌍🎶",
+    "announcement_path": "agents/workspace/CUR/announcements/hoy_te_esperamos_en_el_encuentro_de_las_culturas_en_la_uc_.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/CUR/announcements/hoy_te_esperamos_en_el_encuentro_de_las_culturas_en_la_uc_.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "886595",
+    "course_code": "CUR",
+    "course_name": "Ruta Novata UC 2024",
+    "task_type": "evaluate_announcement",
+    "title": "📢 ¡Recordatorio: El Módulo 8 de Ruta Novata ya está disponible! 💬🌍",
+    "announcement_path": "agents/workspace/CUR/announcements/_recordatorio_el_módulo_8_de_ruta_novata_ya_está_disponible_.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/CUR/announcements/_recordatorio_el_módulo_8_de_ruta_novata_ya_está_disponible_.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "902868",
+    "course_code": "CUR",
+    "course_name": "Ruta Novata UC 2024",
+    "task_type": "evaluate_announcement",
+    "title": "¡Ya está disponible el último Módulo del Año en Ruta Novata! 🎉✨",
+    "announcement_path": "agents/workspace/CUR/announcements/ya_está_disponible_el_último_módulo_del_año_en_ruta_novata_.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/CUR/announcements/ya_está_disponible_el_último_módulo_del_año_en_ruta_novata_.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "902490",
+    "course_code": "CUR",
+    "course_name": "Ruta Novata UC 2024",
+    "task_type": "evaluate_announcement",
+    "title": "¡Participa en la Encuesta Docente de este Semestre! 📝",
+    "announcement_path": "agents/workspace/CUR/announcements/participa_en_la_encuesta_docente_de_este_semestre_.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/CUR/announcements/participa_en_la_encuesta_docente_de_este_semestre_.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "902534",
+    "course_code": "CUR",
+    "course_name": "Ruta Novata UC 2024",
+    "task_type": "evaluate_announcement",
+    "title": "¡Recuerda participar en la Encuesta Docente de este Semestre! 📝",
+    "announcement_path": "agents/workspace/CUR/announcements/recuerda_participar_en_la_encuesta_docente_de_este_semestre_.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/CUR/announcements/recuerda_participar_en_la_encuesta_docente_de_este_semestre_.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "911815",
+    "course_code": "CUR",
+    "course_name": "Ruta Novata UC 2024",
+    "task_type": "evaluate_announcement",
+    "title": "🎉 ¡Gala de Talleres Artístico-Culturales - Segundo Semestre! 🎭🎨",
+    "announcement_path": "agents/workspace/CUR/announcements/_gala_de_talleres_artístico_culturales_segundo_semestre_.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/CUR/announcements/_gala_de_talleres_artístico_culturales_segundo_semestre_.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "911829",
+    "course_code": "CUR",
+    "course_name": "Ruta Novata UC 2024",
+    "task_type": "evaluate_announcement",
+    "title": "🎉 ¡Recuerda que esta semana es la Gala de Talleres Artístico-Culturales! 🎭🎨",
+    "announcement_path": "agents/workspace/CUR/announcements/_recuerda_que_esta_semana_es_la_gala_de_talleres_artístico_culturales_.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/CUR/announcements/_recuerda_que_esta_semana_es_la_gala_de_talleres_artístico_culturales_.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "911843",
+    "course_code": "CUR",
+    "course_name": "Ruta Novata UC 2024",
+    "task_type": "evaluate_announcement",
+    "title": "🎉 ¡Hoy es la Gala de Talleres Artístico-Culturales! 🎭🎨",
+    "announcement_path": "agents/workspace/CUR/announcements/_hoy_es_la_gala_de_talleres_artístico_culturales_.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/CUR/announcements/_hoy_es_la_gala_de_talleres_artístico_culturales_.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "902548",
+    "course_code": "CUR",
+    "course_name": "Ruta Novata UC 2024",
+    "task_type": "evaluate_announcement",
+    "title": "¡Última semana para participar en la Encuesta Docente! 📝",
+    "announcement_path": "agents/workspace/CUR/announcements/última_semana_para_participar_en_la_encuesta_docente_.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/CUR/announcements/última_semana_para_participar_en_la_encuesta_docente_.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1159506",
+    "course_code": "IIC2531",
+    "course_name": "Seguridad Computacional",
+    "task_type": "evaluate_announcement",
+    "title": "Clases Próxima Semana",
+    "announcement_path": "agents/workspace/IIC2531/announcements/clases_próxima_semana.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/IIC2531/announcements/clases_próxima_semana.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1165268",
+    "course_code": "IIC2531",
+    "course_name": "Seguridad Computacional",
+    "task_type": "evaluate_announcement",
+    "title": "Sala I1",
+    "announcement_path": "agents/workspace/IIC2531/announcements/sala_i1.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/IIC2531/announcements/sala_i1.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1165534",
+    "course_code": "IIC2531",
+    "course_name": "Seguridad Computacional",
+    "task_type": "evaluate_announcement",
+    "title": "Horario I1",
+    "announcement_path": "agents/workspace/IIC2531/announcements/horario_i1.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/IIC2531/announcements/horario_i1.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1170172",
+    "course_code": "IIC2531",
+    "course_name": "Seguridad Computacional",
+    "task_type": "evaluate_announcement",
+    "title": "Extensión del plazo de entrega del Laboratorio 3",
+    "announcement_path": "agents/workspace/IIC2531/announcements/extensión_del_plazo_de_entrega_del_laboratorio_3.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/IIC2531/announcements/extensión_del_plazo_de_entrega_del_laboratorio_3.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1170525",
+    "course_code": "IIC2531",
+    "course_name": "Seguridad Computacional",
+    "task_type": "evaluate_announcement",
+    "title": "Notas Lab2 y recorreción",
+    "announcement_path": "agents/workspace/IIC2531/announcements/notas_lab2_y_recorreción.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/IIC2531/announcements/notas_lab2_y_recorreción.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1175030",
+    "course_code": "IIC2531",
+    "course_name": "Seguridad Computacional",
+    "task_type": "evaluate_announcement",
+    "title": "Feedback Proyecto ",
+    "announcement_path": "agents/workspace/IIC2531/announcements/feedback_proyecto_.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/IIC2531/announcements/feedback_proyecto_.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1183517",
+    "course_code": "IIC2531",
+    "course_name": "Seguridad Computacional",
+    "task_type": "evaluate_announcement",
+    "title": "Close 27 de Mayo",
+    "announcement_path": "agents/workspace/IIC2531/announcements/close_27_de_mayo.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/IIC2531/announcements/close_27_de_mayo.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1189067",
+    "course_code": "IIC2531",
+    "course_name": "Seguridad Computacional",
+    "task_type": "evaluate_announcement",
+    "title": "Clase 4 de Junio",
+    "announcement_path": "agents/workspace/IIC2531/announcements/clase_4_de_junio.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/IIC2531/announcements/clase_4_de_junio.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1191602",
+    "course_code": "IIC2531",
+    "course_name": "Seguridad Computacional",
+    "task_type": "evaluate_announcement",
+    "title": "I2 y laboratorios",
+    "announcement_path": "agents/workspace/IIC2531/announcements/i2_y_laboratorios.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/IIC2531/announcements/i2_y_laboratorios.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1192068",
+    "course_code": "IIC2531",
+    "course_name": "Seguridad Computacional",
+    "task_type": "evaluate_announcement",
+    "title": "Fecha final I2",
+    "announcement_path": "agents/workspace/IIC2531/announcements/fecha_final_i2.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/IIC2531/announcements/fecha_final_i2.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1192190",
+    "course_code": "IIC2531",
+    "course_name": "Seguridad Computacional",
+    "task_type": "evaluate_announcement",
+    "title": "Notas I1",
+    "announcement_path": "agents/workspace/IIC2531/announcements/notas_i1.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/IIC2531/announcements/notas_i1.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1194091",
+    "course_code": "IIC2531",
+    "course_name": "Seguridad Computacional",
+    "task_type": "evaluate_announcement",
+    "title": "Clase de mañana",
+    "announcement_path": "agents/workspace/IIC2531/announcements/clase_de_mañana.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/IIC2531/announcements/clase_de_mañana.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1196702",
+    "course_code": "IIC2531",
+    "course_name": "Seguridad Computacional",
+    "task_type": "evaluate_announcement",
+    "title": "Sobre I2",
+    "announcement_path": "agents/workspace/IIC2531/announcements/sobre_i2.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/IIC2531/announcements/sobre_i2.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1197208",
+    "course_code": "IIC2531",
+    "course_name": "Seguridad Computacional",
+    "task_type": "evaluate_announcement",
+    "title": "Últimas clases y presentaciones del proyecto",
+    "announcement_path": "agents/workspace/IIC2531/announcements/últimas_clases_y_presentaciones_del_proyecto.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/IIC2531/announcements/últimas_clases_y_presentaciones_del_proyecto.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1199546",
+    "course_code": "IIC2531",
+    "course_name": "Seguridad Computacional",
+    "task_type": "evaluate_announcement",
+    "title": "Recorrección I1",
+    "announcement_path": "agents/workspace/IIC2531/announcements/recorrección_i1.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/IIC2531/announcements/recorrección_i1.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1202880",
+    "course_code": "IIC2531",
+    "course_name": "Seguridad Computacional",
+    "task_type": "evaluate_announcement",
+    "title": "Orden Presentaciones Proyecto Final",
+    "announcement_path": "agents/workspace/IIC2531/announcements/orden_presentaciones_proyecto_final.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/IIC2531/announcements/orden_presentaciones_proyecto_final.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1203756",
+    "course_code": "IIC2531",
+    "course_name": "Seguridad Computacional",
+    "task_type": "evaluate_announcement",
+    "title": "Notas Lab3",
+    "announcement_path": "agents/workspace/IIC2531/announcements/notas_lab3.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/IIC2531/announcements/notas_lab3.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1204708",
+    "course_code": "IIC2531",
+    "course_name": "Seguridad Computacional",
+    "task_type": "evaluate_announcement",
+    "title": "Sobre notas pendientes",
+    "announcement_path": "agents/workspace/IIC2531/announcements/sobre_notas_pendientes.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/IIC2531/announcements/sobre_notas_pendientes.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1206513",
+    "course_code": "IIC2531",
+    "course_name": "Seguridad Computacional",
+    "task_type": "evaluate_announcement",
+    "title": "Notas Lab4 y recorrección",
+    "announcement_path": "agents/workspace/IIC2531/announcements/notas_lab4_y_recorrección.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/IIC2531/announcements/notas_lab4_y_recorrección.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1211365",
+    "course_code": "IIC2531",
+    "course_name": "Seguridad Computacional",
+    "task_type": "evaluate_announcement",
+    "title": "Contenido  Examen",
+    "announcement_path": "agents/workspace/IIC2531/announcements/contenido_examen.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/IIC2531/announcements/contenido_examen.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1175852",
+    "course_code": "IIC2713",
+    "course_name": "Sistemas de Informacion",
+    "task_type": "evaluate_announcement",
+    "title": "Interrogación 1. [Notas e Intrucciones de recorrección]",
+    "announcement_path": "agents/workspace/IIC2713/announcements/interrogación_1_notas_e_intrucciones_de_recorrección.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/IIC2713/announcements/interrogación_1_notas_e_intrucciones_de_recorrección.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1177615",
+    "course_code": "IIC2713",
+    "course_name": "Sistemas de Informacion",
+    "task_type": "evaluate_announcement",
+    "title": "Ayudantía Hito 4",
+    "announcement_path": "agents/workspace/IIC2713/announcements/ayudantía_hito_4.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/IIC2713/announcements/ayudantía_hito_4.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1183668",
+    "course_code": "IIC2713",
+    "course_name": "Sistemas de Informacion",
+    "task_type": "evaluate_announcement",
+    "title": "Temario e Instrucciones I2",
+    "announcement_path": "agents/workspace/IIC2713/announcements/temario_e_instrucciones_i2.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/IIC2713/announcements/temario_e_instrucciones_i2.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1183766",
+    "course_code": "IIC2713",
+    "course_name": "Sistemas de Informacion",
+    "task_type": "evaluate_announcement",
+    "title": "EVP Hito 4",
+    "announcement_path": "agents/workspace/IIC2713/announcements/evp_hito_4.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/IIC2713/announcements/evp_hito_4.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1184437",
+    "course_code": "IIC2713",
+    "course_name": "Sistemas de Informacion",
+    "task_type": "evaluate_announcement",
+    "title": "Hito 5",
+    "announcement_path": "agents/workspace/IIC2713/announcements/hito_5.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/IIC2713/announcements/hito_5.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1187008",
+    "course_code": "IIC2713",
+    "course_name": "Sistemas de Informacion",
+    "task_type": "evaluate_announcement",
+    "title": "Salas Interrogación 2",
+    "announcement_path": "agents/workspace/IIC2713/announcements/salas_interrogación_2.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/IIC2713/announcements/salas_interrogación_2.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1187838",
+    "course_code": "IIC2713",
+    "course_name": "Sistemas de Informacion",
+    "task_type": "evaluate_announcement",
+    "title": "Ayudantía I2",
+    "announcement_path": "agents/workspace/IIC2713/announcements/ayudantía_i2.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/IIC2713/announcements/ayudantía_i2.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1188386",
+    "course_code": "IIC2713",
+    "course_name": "Sistemas de Informacion",
+    "task_type": "evaluate_announcement",
+    "title": "Material ayudantía I2",
+    "announcement_path": "agents/workspace/IIC2713/announcements/material_ayudantía_i2.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/IIC2713/announcements/material_ayudantía_i2.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1189296",
+    "course_code": "IIC2713",
+    "course_name": "Sistemas de Informacion",
+    "task_type": "evaluate_announcement",
+    "title": "Ayudantía Hito 5",
+    "announcement_path": "agents/workspace/IIC2713/announcements/ayudantía_hito_5.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/IIC2713/announcements/ayudantía_hito_5.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1189851",
+    "course_code": "IIC2713",
+    "course_name": "Sistemas de Informacion",
+    "task_type": "evaluate_announcement",
+    "title": "Clases mañana",
+    "announcement_path": "agents/workspace/IIC2713/announcements/clases_mañana.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/IIC2713/announcements/clases_mañana.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1190238",
+    "course_code": "IIC2713",
+    "course_name": "Sistemas de Informacion",
+    "task_type": "evaluate_announcement",
+    "title": "Presentaciones Hito 5",
+    "announcement_path": "agents/workspace/IIC2713/announcements/presentaciones_hito_5.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/IIC2713/announcements/presentaciones_hito_5.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1192721",
+    "course_code": "IIC2713",
+    "course_name": "Sistemas de Informacion",
+    "task_type": "evaluate_announcement",
+    "title": "Extensión plazo Hito 5 y aclaración ",
+    "announcement_path": "agents/workspace/IIC2713/announcements/extensión_plazo_hito_5_y_aclaración_.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/IIC2713/announcements/extensión_plazo_hito_5_y_aclaración_.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1192794",
+    "course_code": "IIC2713",
+    "course_name": "Sistemas de Informacion",
+    "task_type": "evaluate_announcement",
+    "title": "Clases mañana",
+    "announcement_path": "agents/workspace/IIC2713/announcements/clases_mañana.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/IIC2713/announcements/clases_mañana.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1193873",
+    "course_code": "IIC2713",
+    "course_name": "Sistemas de Informacion",
+    "task_type": "evaluate_announcement",
+    "title": "Instrucciones Presentaciones",
+    "announcement_path": "agents/workspace/IIC2713/announcements/instrucciones_presentaciones.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/IIC2713/announcements/instrucciones_presentaciones.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1198059",
+    "course_code": "IIC2713",
+    "course_name": "Sistemas de Informacion",
+    "task_type": "evaluate_announcement",
+    "title": "Notas Participación en Clases",
+    "announcement_path": "agents/workspace/IIC2713/announcements/notas_participación_en_clases.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/IIC2713/announcements/notas_participación_en_clases.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1204218",
+    "course_code": "IIC2713",
+    "course_name": "Sistemas de Informacion",
+    "task_type": "evaluate_announcement",
+    "title": "Información I2, Recorrecciones y Eximición",
+    "announcement_path": "agents/workspace/IIC2713/announcements/información_i2_recorrecciones_y_eximición.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/IIC2713/announcements/información_i2_recorrecciones_y_eximición.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1208156",
+    "course_code": "IIC2713",
+    "course_name": "Sistemas de Informacion",
+    "task_type": "evaluate_announcement",
+    "title": "Temario Examen",
+    "announcement_path": "agents/workspace/IIC2713/announcements/temario_examen.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/IIC2713/announcements/temario_examen.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1208470",
+    "course_code": "IIC2713",
+    "course_name": "Sistemas de Informacion",
+    "task_type": "evaluate_announcement",
+    "title": "Ayudantía Examen ",
+    "announcement_path": "agents/workspace/IIC2713/announcements/ayudantía_examen_.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/IIC2713/announcements/ayudantía_examen_.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1208768",
+    "course_code": "IIC2713",
+    "course_name": "Sistemas de Informacion",
+    "task_type": "evaluate_announcement",
+    "title": "Recorreciones I2",
+    "announcement_path": "agents/workspace/IIC2713/announcements/recorreciones_i2.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/IIC2713/announcements/recorreciones_i2.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1211249",
+    "course_code": "IIC2713",
+    "course_name": "Sistemas de Informacion",
+    "task_type": "evaluate_announcement",
+    "title": "Salas Examen y Horario",
+    "announcement_path": "agents/workspace/IIC2713/announcements/salas_examen_y_horario.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/IIC2713/announcements/salas_examen_y_horario.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1179899",
+    "course_code": "IIC2223",
+    "course_name": "Teoria de Automatas y Lenguaje",
+    "task_type": "evaluate_announcement",
+    "title": "Notas I1",
+    "announcement_path": "agents/workspace/IIC2223/announcements/notas_i1.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/IIC2223/announcements/notas_i1.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1179901",
+    "course_code": "IIC2223",
+    "course_name": "Teoria de Automatas y Lenguaje",
+    "task_type": "evaluate_announcement",
+    "title": "Publicación de Pauta I1 y Próxima Sala de Recorrección",
+    "announcement_path": "agents/workspace/IIC2223/announcements/publicación_de_pauta_i1_y_próxima_sala_de_recorrección.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/IIC2223/announcements/publicación_de_pauta_i1_y_próxima_sala_de_recorrección.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1179909",
+    "course_code": "IIC2223",
+    "course_name": "Teoria de Automatas y Lenguaje",
+    "task_type": "evaluate_announcement",
+    "title": "ACTUALIZACIÓN: Notas I1 correctas",
+    "announcement_path": "agents/workspace/IIC2223/announcements/actualización_notas_i1_correctas.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/IIC2223/announcements/actualización_notas_i1_correctas.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1182649",
+    "course_code": "IIC2223",
+    "course_name": "Teoria de Automatas y Lenguaje",
+    "task_type": "evaluate_announcement",
+    "title": "Retiro de Pruebas Físicas (I1) y Sala de Recorrección",
+    "announcement_path": "agents/workspace/IIC2223/announcements/retiro_de_pruebas_físicas_i1_y_sala_de_recorrección.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/IIC2223/announcements/retiro_de_pruebas_físicas_i1_y_sala_de_recorrección.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1183568",
+    "course_code": "IIC2223",
+    "course_name": "Teoria de Automatas y Lenguaje",
+    "task_type": "evaluate_announcement",
+    "title": "Sala de Recorrección Presencial I1",
+    "announcement_path": "agents/workspace/IIC2223/announcements/sala_de_recorrección_presencial_i1.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/IIC2223/announcements/sala_de_recorrección_presencial_i1.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1184166",
+    "course_code": "IIC2223",
+    "course_name": "Teoria de Automatas y Lenguaje",
+    "task_type": "evaluate_announcement",
+    "title": "Apertura de Recorrección Escrita (I1)",
+    "announcement_path": "agents/workspace/IIC2223/announcements/apertura_de_recorrección_escrita_i1.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/IIC2223/announcements/apertura_de_recorrección_escrita_i1.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1184443",
+    "course_code": "IIC2223",
+    "course_name": "Teoria de Automatas y Lenguaje",
+    "task_type": "evaluate_announcement",
+    "title": "IMPORTANTE: Confirmación de Horario y Salas Interrogación 2",
+    "announcement_path": "agents/workspace/IIC2223/announcements/importante_confirmación_de_horario_y_salas_interrogación_2.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/IIC2223/announcements/importante_confirmación_de_horario_y_salas_interrogación_2.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1186526",
+    "course_code": "IIC2223",
+    "course_name": "Teoria de Automatas y Lenguaje",
+    "task_type": "evaluate_announcement",
+    "title": "Cambio clases lunes 1 de junio",
+    "announcement_path": "agents/workspace/IIC2223/announcements/cambio_clases_lunes_1_de_junio.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/IIC2223/announcements/cambio_clases_lunes_1_de_junio.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1186528",
+    "course_code": "IIC2223",
+    "course_name": "Teoria de Automatas y Lenguaje",
+    "task_type": "evaluate_announcement",
+    "title": "Contenidos Interrogación 2",
+    "announcement_path": "agents/workspace/IIC2223/announcements/contenidos_interrogación_2.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/IIC2223/announcements/contenidos_interrogación_2.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1186529",
+    "course_code": "IIC2223",
+    "course_name": "Teoria de Automatas y Lenguaje",
+    "task_type": "evaluate_announcement",
+    "title": "Publicación Tarea 5",
+    "announcement_path": "agents/workspace/IIC2223/announcements/publicación_tarea_5.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/IIC2223/announcements/publicación_tarea_5.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1186530",
+    "course_code": "IIC2223",
+    "course_name": "Teoria de Automatas y Lenguaje",
+    "task_type": "evaluate_announcement",
+    "title": "Publicación Tarea 5",
+    "announcement_path": "agents/workspace/IIC2223/announcements/publicación_tarea_5.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/IIC2223/announcements/publicación_tarea_5.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1192010",
+    "course_code": "IIC2223",
+    "course_name": "Teoria de Automatas y Lenguaje",
+    "task_type": "evaluate_announcement",
+    "title": "Material de Estudio: Interrogaciones Pasadas I2 disponibles",
+    "announcement_path": "agents/workspace/IIC2223/announcements/material_de_estudio_interrogaciones_pasadas_i2_disponibles.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/IIC2223/announcements/material_de_estudio_interrogaciones_pasadas_i2_disponibles.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1193704",
+    "course_code": "IIC2223",
+    "course_name": "Teoria de Automatas y Lenguaje",
+    "task_type": "evaluate_announcement",
+    "title": "Sala de Ayuda Tarea 5",
+    "announcement_path": "agents/workspace/IIC2223/announcements/sala_de_ayuda_tarea_5.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/IIC2223/announcements/sala_de_ayuda_tarea_5.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1194344",
+    "course_code": "IIC2223",
+    "course_name": "Teoria de Automatas y Lenguaje",
+    "task_type": "evaluate_announcement",
+    "title": "Sala de Ayuda Hoy",
+    "announcement_path": "agents/workspace/IIC2223/announcements/sala_de_ayuda_hoy.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/IIC2223/announcements/sala_de_ayuda_hoy.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1194560",
+    "course_code": "IIC2223",
+    "course_name": "Teoria de Automatas y Lenguaje",
+    "task_type": "evaluate_announcement",
+    "title": "Cambio de sala sala de ayuda",
+    "announcement_path": "agents/workspace/IIC2223/announcements/cambio_de_sala_sala_de_ayuda.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/IIC2223/announcements/cambio_de_sala_sala_de_ayuda.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1196393",
+    "course_code": "IIC2223",
+    "course_name": "Teoria de Automatas y Lenguaje",
+    "task_type": "evaluate_announcement",
+    "title": "IMPORTANTE: Distribución de Salas I2 - INICIO A LAS 08:20 HRS",
+    "announcement_path": "agents/workspace/IIC2223/announcements/importante_distribución_de_salas_i2_inicio_a_las_0820_hrs.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/IIC2223/announcements/importante_distribución_de_salas_i2_inicio_a_las_0820_hrs.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1200227",
+    "course_code": "IIC2223",
+    "course_name": "Teoria de Automatas y Lenguaje",
+    "task_type": "evaluate_announcement",
+    "title": "Material de Estudio: Exámenes Pasados disponibles",
+    "announcement_path": "agents/workspace/IIC2223/announcements/material_de_estudio_exámenes_pasados_disponibles.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/IIC2223/announcements/material_de_estudio_exámenes_pasados_disponibles.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1204347",
+    "course_code": "IIC2223",
+    "course_name": "Teoria de Automatas y Lenguaje",
+    "task_type": "evaluate_announcement",
+    "title": "IMPORTANTE: Horario oficial del Examen Final",
+    "announcement_path": "agents/workspace/IIC2223/announcements/importante_horario_oficial_del_examen_final.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/IIC2223/announcements/importante_horario_oficial_del_examen_final.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1206287",
+    "course_code": "IIC2223",
+    "course_name": "Teoria de Automatas y Lenguaje",
+    "task_type": "evaluate_announcement",
+    "title": "Publicación de Tarea y Sala de Consultas para mañana",
+    "announcement_path": "agents/workspace/IIC2223/announcements/publicación_de_tarea_y_sala_de_consultas_para_mañana.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/IIC2223/announcements/publicación_de_tarea_y_sala_de_consultas_para_mañana.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1207045",
+    "course_code": "IIC2223",
+    "course_name": "Teoria de Automatas y Lenguaje",
+    "task_type": "evaluate_announcement",
+    "title": "Sala de ayuda en la H2",
+    "announcement_path": "agents/workspace/IIC2223/announcements/sala_de_ayuda_en_la_h2.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/IIC2223/announcements/sala_de_ayuda_en_la_h2.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1161884",
+    "course_code": "LET203G",
+    "course_name": "Western Intercultural Introduc",
+    "task_type": "evaluate_announcement",
+    "title": "Attendance",
+    "announcement_path": "agents/workspace/LET203G/announcements/attendance.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/LET203G/announcements/attendance.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1189042",
+    "course_code": "LET203G",
+    "course_name": "Western Intercultural Introduc",
+    "task_type": "evaluate_announcement",
+    "title": "Paro",
+    "announcement_path": "agents/workspace/LET203G/announcements/paro.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/LET203G/announcements/paro.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  },
+  {
+    "id": "1189383",
+    "course_code": "LET203G",
+    "course_name": "Western Intercultural Introduc",
+    "task_type": "evaluate_announcement",
+    "title": "Next Week's Presentations",
+    "announcement_path": "agents/workspace/LET203G/announcements/next_weeks_presentations.md",
+    "prompt": "Evaluate the new announcement saved at agents/workspace/LET203G/announcements/next_weeks_presentations.md. Determine if it introduces a new task or updates an existing one.",
+    "status": "pending"
+  }
+]

@@ -9,3 +9,8 @@ __pycache__/
 # Future Frontend
 node_modules/
 .next/
+
+# Environment Variables
+.env
+*.env
+backend/.env
