@@ -15,8 +15,8 @@ This document breaks down the entire project into small, manageable tasks. You c
 *Goal: Connect to Canvas UC and Outlook to extract tasks and build domain-specific agent skills locally.*
 - [x] Investigate Canvas UC integration (API vs. Web Scraping with Playwright - Completed connection testing).
 - [x] Build the `fetch_announcements.py` script (El Guardián): Polls courses dynamically, checks for new announcements, and adds tasks to the queue.
-- [ ] Build the `fetch_canvas_assignments` skill: Scans for active assignments, downloads rubrics, and sets up workspace folders.
-- [ ] Build the study summarizer skill (El Estudiante): Reads slides/PDF files and creates local summaries.
+- [x] Build the `fetch_canvas_assignments` (and `profile_course`) skill: Scans for active assignments, downloads rubrics, parses the syllabus, and sets up workspace folders.
+- [x] Build the study summarizer skill (El Estudiante): Reads slides/PDF files, extracts text, queues tasks, and creates local summaries.
 - [ ] Build the grading feedback loop (El Evaluador): Pulls professor remarks to update course style memory.
 - [ ] Investigate Outlook integration (Microsoft Graph API) & read emails.
 

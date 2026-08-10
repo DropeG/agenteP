@@ -2,6 +2,10 @@
 
 This document acts as the single source of truth for all important context, design decisions, and definitions provided by the user for **AgenteP**. 
 **General Rule:** The LLM (Antigravity) must automatically update this context file whenever significant design decisions or architectural changes are made, ensuring that any new conversation or session starts with a perfect, up-to-date base.
+**Incremental & Slower Execution Rule (CRITICAL):** Never run bulk batch ingestion (e.g. 30 announcements or all courses at once). Always operate step-by-step, starting with 1 single course / 1 single item. Test, verify, and confirm with the user before scaling up.
+**Pedagogical Rule:** Since the user is learning software design patterns, whenever the agent implements or modifies core structural components related to design patterns, the agent must briefly explain how the pattern is operating in that specific context to help the user learn.
+**Universal Course-Agnostic AI Agent Principle (CORE OF THE PRODUCT):** All agents (starting with *El Guardián*) MUST be 100% course-agnostic and use Canvas API auto-discovery (`GET /api/v1/courses`). Never hardcode course siglas or course-specific scripts. 
+**No External Paid AI API Rule:** Python backend scripts (such as *El Guardián* or *Worker*) must NEVER import `google-genai`, `openai`, or invoke paid external AI APIs. All agentic intelligence, reasoning, decision-making, and classification are performed directly by the Agent (Antigravity). Python scripts act purely as deterministic data tools for Canvas HTTP polling, local file storage, and Supabase REST sync.
 
 ---
 
@@ -23,27 +27,34 @@ Announcements are the central operational event feed where the critical updates 
 * Typos or corrections to homework constraints.
 * Excel grade files releases and regrade request deadlines (**Recorrecciones**).
 
----
-
 ## 🎨 2. Frontend Design Constraints (Strict)
 To avoid generic AI templates ("AI Slop"), the user has defined strict aesthetics:
-* **Style:** Ultra-minimalist. 95% black and white, clean `Inter` typography, and generous spacing. No purple/indigo gradients, no generic glassmorphism, and no fake KPI graphs.
-* **Perry Accents (≤5%):** Turquoise (`#00a3a6`), Pico Orange (`#ff9e1b`), and Hat Brown (`#4b2430`) used only for:
-  * Logo representation (minimalist 2D).
-  * Active states.
-  * Critical alerts (e.g., upcoming exam rooms or immediate deadlines).
-* **Layout Structure:**
-  * **Sidebar:** Minimalist menu containing only **"Mis Ramos"** (My Courses) and **"Configuración"** (Settings).
-  * **Main Container:** Centered grid of course (Ramo) cards.
-  * **Course Cards:** Ultra-minimalist (only shows **Sigla** and **Name** of the course).
-  * **Detail Panel:** Clicking a course card expands it to show the agent console for that course (tasks, logs in `JetBrains Mono`, and summaries).
+* **Style:** Ultra-minimalist warm-neutral (85–95%) environment (`#FAF7F2` warm cream background, `#FFFFFF` elevated white cards, `#45240F` dark brown high-contrast ink) with clean `Inter` typography and generous spacing.
+* **Official Logo Palette Accents:**
+  * Turquoise (`#08ACB1`): Primary actions, active navigation, focus rings, running agent indicators.
+  * Hat Brown (`#8B3F0A`): Secondary brand accents and structural details.
+  * Dark Brown (`#45240F`): High-contrast text, dark controls, selected navigation.
+  * Orange (`#F99814`): High-priority warnings, upcoming exam rooms, and deadline alerts.
+* **Layout & Navigation Architecture (Canvas UC 2-Tier Pattern):**
+  * **Primary Global Sidebar (Tier 1):** Displays official logo (`agente-p-logo.png`), **"Mis Ramos"** (Dashboard) and **"Configuración"** (Settings). When a course is opened, Tier 1 automatically collapses into an **Icon-Only Mode (64px)** to maximize working space on desktop.
+  * **Secondary Course Sidebar (Tier 2):** Appears adjacent to Tier 1 when a course card is clicked, offering course sub-navigation:
+    1. **Actividad Agente:** Amie-style date-grouped Timeline Feed (*Today*, *Yesterday*, *Last Week*, *Past*) & `JetBrains Mono` real-time console terminal.
+    2. **Programa del Curso:** Rich syllabus hub with Course Description, Formula & Variable Breakdown, Exam Eximición Rules, Key Milestone Dates, and Faculty Contacts.
+    3. **Anuncios:** Canvas Markdown announcements feed.
+    4. **Tareas & Evaluaciones:** Homework, exams, and project deliverables.
+    5. **Materiales:** Class slides & AI summaries.
+  * **100% Mobile & iPad Responsiveness:** The UI adapts seamlessly across Mobile smartphones (collapsible hamburger top-bar header), iPad/Tablets, and Desktop displays.
 
 ---
 
 ## ⚙️ 3. Technical Architecture & Constraints
-* **Backend:** FastAPI (Python) running a local database in SQLite (`database.db`).
-* **Frontend:** React + Vite (SPA) for ultra-low resource usage, served statically or run as a lightweight process.
-* **Agent Engine:** Standalone Python daemon (`worker.py`) that polls tasks and coordinates them.
+* **Backend:** Standalone Python background workers (`worker.py`, `fetch_announcements.py`) connected to **Supabase Cloud PostgreSQL** (`tasks` & `logs` tables).
+* **Database (Supabase Free Tier):** Real-time task queue (`tasks` table) and execution logs (`logs` table) synced in real time across backend and frontend.
+* **Frontend:** React + Vite (SPA) built with Vanilla CSS variables and semantic design tokens, running locally at `http://localhost:5173/`.
+* **Agent Engine:** Python daemon (`worker.py`) that polls pending tasks from Supabase and dispatches strategies dynamically.
+* **Software Design Patterns:**
+  * **Strategy Pattern:** Used to encapsulate individual task handlers (`EvaluateAnnouncementStrategy`, `ZeroCostLLMStrategy`), allowing the core loop to dynamically select and run the correct execution logic.
+  * **Registry Pattern (Dynamic Factory):** Instead of `if/else` statements, `TaskStrategyFactory` uses a dictionary registry to map task types to their corresponding Strategy classes, completely eliminating conditional branching in the task dispatcher.
 * **LLM Cost-Bypass (Zero-Cost Bridge):** We completely bypass direct paid API integrations (Gemini/OpenAI keys). The worker loops tasks into `agents/io/pending_task.json` and waits for Antigravity (the AI coding assistant in this chat) to solve it and write to `resolved_task.json`.
 * **Version Control:** Under Jujutsu (`jj`) rather than Git. No automatic commits or pushes.
 
@@ -60,8 +71,8 @@ To handle multiple courses dynamically, background workers are organized into fo
    * **Queue Logic:** Adds new announcements to `dummy_queue.json` as `"pending"` tasks of type `"evaluate_announcement"`.
 
 2. **El Estudiante (Scholar - Material Digestion & RAG Index):**
-   * **Role:** Downloads and processes lecture slides, readings, and PDFs.
-   * **Tasks:** Generates concise markdown study summaries under `agents/workspace/{COURSE_CODE}/summaries/`.
+   * **Role:** Scans Canvas folders named 'Clases', 'Lecturas', or 'Diapositivas' incrementally, downloads new PDFs/slides to `clases/raw/`, and extracts text using `pypdf` into `clases/parsed_text/`.
+   * **Tasks:** Triggered by `"summarize_material"` tasks in the queue, it generates structured Markdown summaries under `clases/summaries/` containing Core Concepts, Key Definitions, Code/Formulas, and Key Takeaways.
 
 3. **El Auxiliar (Solver - Task Solver Agent):**
    * **Role:** Triggered by `"pending"` tasks in `dummy_queue.json`.

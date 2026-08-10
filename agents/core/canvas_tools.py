@@ -184,20 +184,136 @@ async def download_syllabus(client, course_code):
     if not syllabus_body and not files:
         print("❌ Could not find any syllabus body or file containing 'programa'.")
 
+def extract_pdf_text(pdf_path, txt_path):
+    try:
+        from pypdf import PdfReader
+        reader = PdfReader(pdf_path)
+        text_pages = []
+        for i, page in enumerate(reader.pages):
+            text_pages.append(f"--- Slide {i+1} ---\n" + (page.extract_text() or ""))
+        full_text = "\n\n".join(text_pages)
+        with open(txt_path, "w", encoding="utf-8") as f:
+            f.write(full_text)
+        return True
+    except Exception as e:
+        print(f"❌ Error extracting text from {pdf_path}: {e}")
+        return False
+
+async def sync_materials(client, course_code):
+    course_id, course_name = await get_course_id(client, course_code)
+    if not course_id: return
+
+    # Setup directories
+    clases_dir = WORKSPACE_DIR / course_code.upper() / "clases"
+    raw_dir = clases_dir / "raw"
+    parsed_text_dir = clases_dir / "parsed_text"
+    summaries_dir = clases_dir / "summaries"
+    
+    raw_dir.mkdir(parents=True, exist_ok=True)
+    parsed_text_dir.mkdir(parents=True, exist_ok=True)
+    summaries_dir.mkdir(parents=True, exist_ok=True)
+
+    # 1. Fetch folders inside the course
+    url = f"{api_url}/api/v1/courses/{course_id}/folders"
+    response = await client.get(url, params={"per_page": 50})
+    response.raise_for_status()
+    folders = response.json()
+    
+    # Filter folders that match our criteria
+    target_names = ["clase", "lectur", "diapositiva", "slide", "presentacion", "transparencia"]
+    matching_folders = []
+    for f in folders:
+        name = f.get("name", "").lower()
+        if any(term in name for term in target_names):
+            matching_folders.append(f)
+            
+    if not matching_folders:
+        print(f"⚠️ No lecture folders found matching slide terms in course {course_code}.")
+        return
+        
+    print(f"📁 Found {len(matching_folders)} matching folder(s): {[f['name'] for f in matching_folders]}")
+
+    from fetch_announcements import load_queue, save_queue
+    queue = load_queue()
+
+    for folder in matching_folders:
+        folder_id = folder["id"]
+        files_url = f"{api_url}/api/v1/folders/{folder_id}/files"
+        f_response = await client.get(files_url, params={"per_page": 50})
+        f_response.raise_for_status()
+        files = f_response.json()
+        
+        # We only care about PDF or PowerPoint files
+        valid_extensions = [".pdf", ".ppt", ".pptx"]
+        target_files = [f for f in files if any(f.get("filename", "").lower().endswith(ext) for ext in valid_extensions)]
+        
+        if not target_files:
+            continue
+            
+        print(f"🔍 Folder '{folder['name']}' has {len(target_files)} material files:")
+        for tf in target_files:
+            filename = tf.get("filename")
+            file_id = str(tf.get("id"))
+            download_url = tf.get("url")
+            
+            raw_path = raw_dir / filename
+            txt_path = parsed_text_dir / f"{filename}.txt"
+            
+            # Download file if it doesn't exist
+            if not raw_path.exists():
+                print(f"  └─ ⬇️ Downloading new material: {filename}...")
+                async with client.stream("GET", download_url) as r:
+                    r.raise_for_status()
+                    with open(raw_path, "wb") as f_out:
+                        async for chunk in r.aiter_bytes():
+                            f_out.write(chunk)
+                print(f"  └─ ✅ Saved: {raw_path}")
+            
+            # Extract PDF text if it is a PDF and text file doesn't exist
+            if filename.lower().endswith(".pdf") and not txt_path.exists():
+                print(f"  └─ ⚙️ Extracting PDF text to txt file...")
+                success = extract_pdf_text(raw_path, txt_path)
+                if success:
+                    print(f"  └─ ✅ Saved: {txt_path}")
+            
+            # Add summarize task to the queue if not already present
+            task_id = f"file_{file_id}"
+            if not any(t.get("id") == task_id for t in queue):
+                clean_name = filename.rsplit('.', 1)[0]
+                new_task = {
+                    "id": task_id,
+                    "course_code": course_code.upper(),
+                    "course_name": course_name,
+                    "task_type": "summarize_material",
+                    "title": f"Summarize {filename}",
+                    "raw_path": f"agents/workspace/{course_code.upper()}/clases/raw/{filename}",
+                    "text_path": f"agents/workspace/{course_code.upper()}/clases/parsed_text/{filename}.txt",
+                    "summary_path": f"agents/workspace/{course_code.upper()}/clases/summaries/{clean_name}.md",
+                    "prompt": f"Summarize the slide text at agents/workspace/{course_code.upper()}/clases/parsed_text/{filename}.txt. Follow the study_summarizer skill format guidelines.",
+                    "status": "pending"
+                }
+                queue.append(new_task)
+                print(f"  └─ ➕ Queued task: 'Summarize {filename}'")
+
+    save_queue(queue)
+    print("\n==========================================================================")
+    print("✅ Sync and Text Extraction Complete!")
+    print("==========================================================================\n")
+
 async def main():
     if not token:
         print("❌ Error: CANVAS_API_TOKEN not set!")
         return
 
     parser = argparse.ArgumentParser(description="Canvas UC Integrations Helper")
-    parser.add_argument("command", choices=["list-assignments", "setup-assignment", "download-file", "download-syllabus"])
+    parser.add_argument("command", choices=["list-assignments", "setup-assignment", "download-file", "download-syllabus", "sync-materials"])
     parser.add_argument("--course", required=True, help="Course Code (e.g. IIC2143)")
     parser.add_argument("--assignment-name", help="Name of the assignment to setup")
     parser.add_argument("--file-name", help="Name of the file to search and download")
     
     args = parser.parse_args()
     
-    async with httpx.AsyncClient(headers=headers, follow_redirects=True) as client:
+    async with httpx.AsyncClient(headers=headers, follow_redirects=True, timeout=60.0) as client:
         if args.command == "list-assignments":
             await list_assignments(client, args.course)
         elif args.command == "setup-assignment":
@@ -212,6 +328,8 @@ async def main():
             await download_file(client, args.course, args.file_name)
         elif args.command == "download-syllabus":
             await download_syllabus(client, args.course)
+        elif args.command == "sync-materials":
+            await sync_materials(client, args.course)
 
 if __name__ == "__main__":
     asyncio.run(main())

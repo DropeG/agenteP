@@ -14,3 +14,12 @@ node_modules/
 .env
 *.env
 backend/.env
+
+# Local Databases
+*.db
+*.sqlite
+*.sqlite3
+
+# Runtime Agent Workspace Data
+agents/workspace/
+
