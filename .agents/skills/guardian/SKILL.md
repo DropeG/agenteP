@@ -32,3 +32,16 @@ Use this skill when running **El Guardián** to check Canvas UC for new announce
    }
    ```
 5. Log the ingestion step so the next run automatically picks up the following unmarked announcement (`target_index + 1`).
+
+## Step 3: Calendar Date Extraction & Rescheduling
+
+1. Analyze the processed announcement content for any evaluation dates, submission deadlines, or rescheduled events (e.g., *"La I1 se corrió al 10 de septiembre"* or *"Entrega Tarea 1 extendida hasta..."*).
+2. If any evaluation date or deadline is mentioned or modified, execute `calendar_tools.py upsert-event` to register/update it in `agents/workspace/calendar.json`:
+   ```bash
+   backend/venv/bin/python agents/core/calendar_tools.py upsert-event \
+     --course {COURSE_CODE} \
+     --title "{EVENT_TITLE}" \
+     --type {EVENT_TYPE} \
+     --date "{ISO_DATE_STRING}" \
+     --source "announcement"
+   ```

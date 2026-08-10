@@ -5,8 +5,8 @@ import path from 'path'
 export default defineConfig(({ mode }) => {
   // Load env variables from backend/.env
   const env = loadEnv(mode, path.resolve(__dirname, '../backend'), '')
-  const supabaseUrl = env.SUPABASE_URL || 'https://pomojglyrqffqjknemup.supabase.co'
-  const supabaseKey = env.SUPABASE_KEY || 'sb_secret_js0ebPHNZrdI6m1sLp3K0w_63w9u08R'
+  const supabaseUrl = env.SUPABASE_URL || ''
+  const supabaseKey = env.SUPABASE_KEY || ''
 
   return {
     plugins: [react()],

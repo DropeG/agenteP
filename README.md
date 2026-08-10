@@ -71,6 +71,10 @@ Para arrancar el agente sin consumir APIs de pago:
 ---
 
 ## 📖 Documentación del Proyecto
-*   **[vision_and_features.md](file:///Users/pedro/Documents/UC/agenteP/docs/context/vision_and_features.md)**: Visión, features clave y plan de ruta del proyecto.
-*   **[technical_stack.md](file:///Users/pedro/Documents/UC/agenteP/docs/context/technical_stack.md)**: Contexto del proyecto y stack técnico detallado.
-*   **[options.md](file:///Users/pedro/Documents/UC/agenteP/docs/architecture/options.md)**: Opciones de diseño, pros, contras y justificación del stack tecnológico.
+*   **[project_context.md](file:///Users/pedro/Documents/UC/agenteP/docs/context/project_context.md)**: Reglas del agente, flujo UC y decisiones clave.
+*   **[product_vision.md](file:///Users/pedro/Documents/UC/agenteP/docs/context/product_vision.md)**: Visión del producto, audiencia y personalidad de marca.
+*   **[technical_stack.md](file:///Users/pedro/Documents/UC/agenteP/docs/context/technical_stack.md)**: Stack técnico y arquitecturas base.
+*   **[options.md](file:///Users/pedro/Documents/UC/agenteP/docs/architecture/options.md)**: Análisis de opciones de arquitectura.
+*   **[features.md](file:///Users/pedro/Documents/UC/agenteP/docs/architecture/features.md)**: Arquitectura implementada, worker y skills.
+*   **[design_system.md](file:///Users/pedro/Documents/UC/agenteP/docs/design/design_system.md)**: Sistema de diseño visual, paleta OKLCH y tokens.
+*   **[roadmap.md](file:///Users/pedro/Documents/UC/agenteP/docs/roadmap.md)**: Hoja de ruta y desarrollo futuro.

@@ -1,16 +1,17 @@
 import os
+import sys
 import re
 import json
 import httpx
 import asyncio
 import argparse
 from pathlib import Path
-from dotenv import load_dotenv
-from fetch_announcements import html_to_markdown, clean_filename, fetch_courses
-
 # Setup paths relative to this script
 AGENTS_DIR = Path(__file__).resolve().parent.parent
 WORKSPACE_DIR = AGENTS_DIR / "workspace"
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+
+from dotenv import load_dotenv
 
 # Load environment variables
 load_dotenv()
@@ -23,12 +24,44 @@ if not token:
 
 headers = {"Authorization": f"Bearer {token}"} if token else {}
 
+def clean_filename(name):
+    return re.sub(r'[\\/*?:"<>|]', "_", name).strip()
+
+def html_to_markdown(html_str):
+    if not html_str:
+        return ""
+    try:
+        from bs4 import BeautifulSoup
+        soup = BeautifulSoup(html_str, "html.parser")
+        return soup.get_text("\n\n").strip()
+    except Exception:
+        clean = re.sub(r'<br\s*/?>', '\n', html_str, flags=re.IGNORECASE)
+        clean = re.sub(r'<p[^>]*>', '\n\n', clean, flags=re.IGNORECASE)
+        clean = re.sub(r'<[^>]+>', '', clean)
+        return clean.strip()
+
+async def fetch_courses(client):
+    try:
+        url = f"{api_url}/api/v1/users/self/courses"
+        response = await client.get(url, params={"per_page": 50})
+        response.raise_for_status()
+        return response.json()
+    except Exception:
+        url = f"{api_url}/api/v1/courses"
+        response = await client.get(url, params={"per_page": 50})
+        response.raise_for_status()
+        return response.json()
+
 async def get_course_id(client, course_code):
-    courses = await fetch_courses(client)
-    for c in courses:
-        # e.g., match 'IIC2143' against 'IIC2143-1'
-        if course_code.upper() in c.get("course_code", "").upper():
-            return c["id"], c.get("name", c["course_code"])
+    if str(course_code).isdigit():
+        return int(course_code), str(course_code)
+    try:
+        courses = await fetch_courses(client)
+        for c in courses:
+            if course_code.upper() in c.get("course_code", "").upper():
+                return c["id"], c.get("name", c["course_code"])
+    except Exception as e:
+        print(f"⚠️ Could not list active courses automatically ({e}).")
     print(f"❌ Course {course_code} not found in active courses.")
     return None, None
 
@@ -300,21 +333,176 @@ async def sync_materials(client, course_code):
     print("✅ Sync and Text Extraction Complete!")
     print("==========================================================================\n")
 
+async def get_course_info(client, course_code):
+    course_id, course_name = await get_course_id(client, course_code)
+    if not course_id:
+        print(json.dumps({"error": f"Course {course_code} not found"}))
+        return
+
+    url = f"{api_url}/api/v1/courses/{course_id}"
+    try:
+        response = await client.get(url, params={"include[]": "syllabus_body"})
+        response.raise_for_status()
+        course_data = response.json()
+
+        result = {
+            "course_id": course_id,
+            "course_name": course_name,
+            "course_code": course_code.upper(),
+            "syllabus_body": course_data.get("syllabus_body")
+        }
+        print(json.dumps(result, indent=2, ensure_ascii=False))
+    except httpx.HTTPStatusError as e:
+        print(json.dumps({"error": f"Canvas API HTTP Error {e.response.status_code}: {e.response.text}"}))
+    except Exception as e:
+        print(json.dumps({"error": f"Failed to get course info: {str(e)}"}))
+
+async def list_files(client, course_code):
+    course_id, _ = await get_course_id(client, course_code)
+    if not course_id:
+        print(json.dumps({"error": f"Course {course_code} not found"}))
+        return
+
+    url = f"{api_url}/api/v1/courses/{course_id}/files"
+    try:
+        response = await client.get(url, params={"per_page": 100})
+        response.raise_for_status()
+        raw_files = response.json()
+
+        files = [
+            {
+                "id": f.get("id"),
+                "filename": f.get("filename"),
+                "display_name": f.get("display_name"),
+                "size": f.get("size"),
+                "updated_at": f.get("updated_at"),
+                "url": f.get("url"),
+                "folder_id": f.get("folder_id")
+            }
+            for f in raw_files
+        ]
+        print(json.dumps(files, indent=2, ensure_ascii=False))
+    except httpx.HTTPStatusError as e:
+        print(json.dumps({"error": f"Canvas API HTTP Error {e.response.status_code}: {e.response.text}"}))
+    except Exception as e:
+        print(json.dumps({"error": f"Failed to list files: {str(e)}"}))
+
+async def list_modules(client, course_code):
+    course_id, _ = await get_course_id(client, course_code)
+    if not course_id:
+        print(json.dumps({"error": f"Course {course_code} not found"}))
+        return
+
+    url = f"{api_url}/api/v1/courses/{course_id}/modules"
+    try:
+        response = await client.get(url, params={"include[]": "items", "per_page": 50})
+        response.raise_for_status()
+        raw_modules = response.json()
+
+        modules = []
+        for m in raw_modules:
+            items = [
+                {
+                    "id": item.get("id"),
+                    "title": item.get("title"),
+                    "type": item.get("type"),
+                    "content_id": item.get("content_id"),
+                    "url": item.get("url")
+                }
+                for item in m.get("items", [])
+            ]
+            modules.append({
+                "id": m.get("id"),
+                "name": m.get("name"),
+                "items": items
+            })
+        print(json.dumps(modules, indent=2, ensure_ascii=False))
+    except httpx.HTTPStatusError as e:
+        print(json.dumps({"error": f"Canvas API HTTP Error {e.response.status_code}: {e.response.text}"}))
+    except Exception as e:
+        print(json.dumps({"error": f"Failed to list modules: {str(e)}"}))
+
+async def download_file_by_id(client, file_id, dest):
+    url = f"{api_url}/api/v1/files/{file_id}"
+    try:
+        response = await client.get(url)
+        response.raise_for_status()
+        file_info = response.json()
+
+        download_url = file_info.get("url")
+        if not download_url:
+            print(json.dumps({"error": f"No download URL found for file ID {file_id}"}))
+            return
+
+        dest_path = Path(dest)
+        dest_path.parent.mkdir(parents=True, exist_ok=True)
+
+        async with client.stream("GET", download_url) as r:
+            r.raise_for_status()
+            with open(dest_path, "wb") as f:
+                async for chunk in r.aiter_bytes():
+                    f.write(chunk)
+
+        result = {
+            "status": "success",
+            "file_id": file_id,
+            "filename": file_info.get("filename"),
+            "size": file_info.get("size"),
+            "saved_to": str(dest_path)
+        }
+        print(json.dumps(result, indent=2, ensure_ascii=False))
+    except httpx.HTTPStatusError as e:
+        print(json.dumps({"error": f"Canvas API HTTP Error {e.response.status_code}: {e.response.text}"}))
+    except Exception as e:
+        print(json.dumps({"error": f"Failed to download file: {str(e)}"}))
+
 async def main():
     if not token:
         print("❌ Error: CANVAS_API_TOKEN not set!")
         return
 
     parser = argparse.ArgumentParser(description="Canvas UC Integrations Helper")
-    parser.add_argument("command", choices=["list-assignments", "setup-assignment", "download-file", "download-syllabus", "sync-materials"])
-    parser.add_argument("--course", required=True, help="Course Code (e.g. IIC2143)")
+    parser.add_argument("command", choices=[
+        "get-course-info",
+        "list-files",
+        "list-modules",
+        "download-file-by-id",
+        "list-assignments",
+        "setup-assignment",
+        "download-file",
+        "download-syllabus",
+        "sync-materials"
+    ])
+    parser.add_argument("--course", help="Course Code (e.g. IIC2143)")
     parser.add_argument("--assignment-name", help="Name of the assignment to setup")
     parser.add_argument("--file-name", help="Name of the file to search and download")
+    parser.add_argument("--file-id", help="Canvas File ID to download")
+    parser.add_argument("--dest", help="Destination file path for download-file-by-id")
     
     args = parser.parse_args()
     
     async with httpx.AsyncClient(headers=headers, follow_redirects=True, timeout=60.0) as client:
-        if args.command == "list-assignments":
+        if args.command == "get-course-info":
+            if not args.course:
+                print("❌ Error: --course is required for get-course-info")
+                return
+            await get_course_info(client, args.course)
+        elif args.command == "list-files":
+            if not args.course:
+                print("❌ Error: --course is required for list-files")
+                return
+            await list_files(client, args.course)
+        elif args.command == "list-modules":
+            if not args.course:
+                print("❌ Error: --course is required for list-modules")
+                return
+            await list_modules(client, args.course)
+        elif args.command == "download-file-by-id":
+            if not args.file_id or not args.dest:
+                print("❌ Error: --file-id and --dest are required for download-file-by-id")
+                return
+            await download_file_by_id(client, args.file_id, args.dest)
+        elif args.command == "list-assignments":
             await list_assignments(client, args.course)
         elif args.command == "setup-assignment":
             if not args.assignment_name:
@@ -333,3 +521,4 @@ async def main():
 
 if __name__ == "__main__":
     asyncio.run(main())
+
