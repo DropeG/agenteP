@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Sidebar from './components/Sidebar';
 import CourseGrid from './components/CourseGrid';
+import CalendarView from './components/CalendarView';
 
 const INITIAL_COURSES = [
   { course_code: 'IIC2143', course_name: 'Ingeniería de Software' }
@@ -19,6 +20,9 @@ export default function App() {
       <main className="main-content">
         {activeView === 'ramos' && (
           <CourseGrid courses={INITIAL_COURSES} />
+        )}
+        {activeView === 'calendar' && (
+          <CalendarView />
         )}
         {activeView === 'settings' && (
           <div style={styles.placeholderContainer}>
