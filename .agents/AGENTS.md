@@ -34,8 +34,3 @@ Este archivo contiene las directrices específicas del proyecto AgenteP para gar
 1. **Validación Visual**: Antes de escribir cualquier código de frontend, presenta un mockup o plan estructural interactivo (`$impeccable shape`).
 2. **Implementación Controlada**: Procesa los cambios en fases incrementales (`$impeccable craft`), probando localmente tras cada cambio.
 
----
-
-## 🥷 Jujutsu (jj) Version Control
-* **Herramienta Principal**: El usuario desea aprender y utilizar **Jujutsu (`jj`)** en lugar de Git para el control de versiones en este proyecto.
-* **Instrucción**: Cada vez que el usuario pregunte cómo guardar, hacer commit, o subir (push) cambios, el agente **debe** proporcionar las instrucciones y comandos correspondientes en `jj` (ej. `jj describe`, `jj new`, `jj git push`), explicando brevemente qué hace cada comando para ayudarle a aprender.

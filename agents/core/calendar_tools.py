@@ -24,7 +24,10 @@ def save_calendar(events):
     def parse_event_date(evt):
         d_str = evt.get("date") or evt.get("start_at") or ""
         try:
-            return datetime.fromisoformat(d_str.replace("Z", "+00:00"))
+            dt = datetime.fromisoformat(d_str.replace("Z", "+00:00"))
+            if dt.tzinfo is not None:
+                dt = dt.replace(tzinfo=None)
+            return dt
         except Exception:
             return datetime.max
 

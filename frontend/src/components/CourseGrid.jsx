@@ -1,7 +1,7 @@
 import React from 'react';
 import CourseCard from './CourseCard';
 
-export default function CourseGrid({ courses, onSelectCourse, taskCounts }) {
+export default function CourseGrid({ courses = [] }) {
   if (!courses || courses.length === 0) {
     return (
       <div style={styles.emptyState}>
@@ -16,18 +16,16 @@ export default function CourseGrid({ courses, onSelectCourse, taskCounts }) {
       <div style={styles.header}>
         <div>
           <h2 style={styles.title}>Mis Ramos</h2>
-          <p style={styles.subtitle}>Selecciona un ramo para ver la actividad y tareas de los agentes.</p>
+          <p style={styles.subtitle}>Asignaturas del semestre actual.</p>
         </div>
-        <span style={styles.countBadge}>{courses.length} Cursos Activos</span>
+        <span style={styles.countBadge}>{courses.length} {courses.length === 1 ? 'Curso Activo' : 'Cursos Activos'}</span>
       </div>
 
       <div style={styles.grid}>
         {courses.map((course) => (
           <CourseCard
-            key={course.course_code}
+            key={course.course_code || course.id}
             course={course}
-            onSelect={onSelectCourse}
-            activeTaskCount={taskCounts[course.course_code] || 0}
           />
         ))}
       </div>
