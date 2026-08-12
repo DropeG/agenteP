@@ -3,21 +3,25 @@ import Sidebar from './components/Sidebar';
 import CourseSubSidebar from './components/CourseSubSidebar';
 import CourseGrid from './components/CourseGrid';
 import CourseGeneralView from './components/CourseGeneralView';
+import CourseTasksView from './components/CourseTasksView';
 import CalendarView from './components/CalendarView';
 import { loadWorkspaceCourses } from './utils/courseLoader';
 
 export default function App() {
   const [activeView, setActiveView] = useState('ramos');
   const [selectedCourse, setSelectedCourse] = useState(null);
+  const [activeCourseTab, setActiveCourseTab] = useState('general');
   const courses = useMemo(() => loadWorkspaceCourses(), []);
 
   const handleSelectCourse = (course) => {
     setSelectedCourse(course);
+    setActiveCourseTab('general');
     setActiveView('ramos');
   };
 
   const handleBackToRamos = () => {
     setSelectedCourse(null);
+    setActiveCourseTab('general');
   };
 
   return (
@@ -28,6 +32,7 @@ export default function App() {
         setActiveView={(view) => {
           setActiveView(view);
           setSelectedCourse(null);
+          setActiveCourseTab('general');
         }}
         collapsed={Boolean(selectedCourse)}
         onBackToRamos={handleBackToRamos}
@@ -38,13 +43,19 @@ export default function App() {
         <CourseSubSidebar
           course={selectedCourse}
           onBack={handleBackToRamos}
+          activeTab={activeCourseTab}
+          onSelectTab={(tab) => setActiveCourseTab(tab)}
         />
       )}
 
       {/* Main Content Area */}
       <main className={`main-content ${selectedCourse ? 'has-course' : ''}`}>
         {selectedCourse ? (
-          <CourseGeneralView course={selectedCourse} />
+          activeCourseTab === 'tasks' ? (
+            <CourseTasksView course={selectedCourse} />
+          ) : (
+            <CourseGeneralView course={selectedCourse} />
+          )
         ) : (
           <>
             {activeView === 'ramos' && (

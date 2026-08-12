@@ -1,7 +1,7 @@
 import React from 'react';
-import { ArrowLeft, Info } from 'lucide-react';
+import { ArrowLeft, Info, CheckSquare } from 'lucide-react';
 
-export default function CourseSubSidebar({ course, onBack }) {
+export default function CourseSubSidebar({ course, onBack, activeTab = 'general', onSelectTab }) {
   if (!course) return null;
 
   return (
@@ -22,9 +22,22 @@ export default function CourseSubSidebar({ course, onBack }) {
 
       {/* Sub-navigation Items */}
       <nav style={styles.nav}>
-        <button style={styles.navItemActive} title="General">
+        <button 
+          onClick={() => onSelectTab && onSelectTab('general')}
+          style={activeTab === 'general' ? styles.navItemActive : styles.navItem} 
+          title="General"
+        >
           <Info size={16} />
           <span>General</span>
+        </button>
+        <button 
+          onClick={() => onSelectTab && onSelectTab('tasks')}
+          style={activeTab === 'tasks' ? styles.navItemActive : styles.navItem} 
+          title="Tareas"
+        >
+          <CheckSquare size={16} />
+          <span style={{ flex: 1 }}>Tareas</span>
+          <span style={styles.badgeCount}>2</span>
         </button>
       </nav>
     </aside>
@@ -94,6 +107,33 @@ const styles = {
     color: 'var(--color-action-primary)',
     border: '1px solid var(--color-border)',
     textAlign: 'left',
-    width: '100%'
+    width: '100%',
+    cursor: 'pointer'
+  },
+  navItem: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '10px',
+    padding: '9px 12px',
+    borderRadius: '8px',
+    fontSize: '13.5px',
+    fontWeight: 500,
+    backgroundColor: 'transparent',
+    color: 'var(--color-text-secondary)',
+    border: '1px solid transparent',
+    textAlign: 'left',
+    width: '100%',
+    cursor: 'pointer',
+    transition: 'all 0.15s ease'
+  },
+  badgeCount: {
+    fontSize: '11px',
+    fontWeight: 700,
+    fontFamily: 'var(--font-mono)',
+    backgroundColor: 'var(--color-surface-bg)',
+    color: 'var(--color-action-primary)',
+    padding: '2px 6px',
+    borderRadius: '10px',
+    border: '1px solid var(--color-border)'
   }
 };
