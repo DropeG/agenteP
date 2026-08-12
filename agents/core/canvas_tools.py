@@ -83,6 +83,56 @@ async def list_assignments(client, course_code):
         due = a.get("due_at", "No due date")
         print(f" - [{a['id']}] {a['name']} (Due: {due})")
 
+def determine_category_folder(course_code, assignment, group_name=""):
+    course_dir = WORKSPACE_DIR / course_code.upper()
+    profile_path = course_dir / "course_profile.json"
+    
+    name_lower = assignment.get("name", "").lower()
+    group_lower = group_name.lower() if group_name else ""
+    
+    # 1. Try reading course_profile.json if available
+    if profile_path.exists():
+        try:
+            with open(profile_path, "r", encoding="utf-8") as f:
+                profile = json.load(f)
+            evals = profile.get("evaluations", [])
+            if isinstance(evals, list):
+                for ev in evals:
+                    folder = ev.get("folder")
+                    ev_key = ev.get("key", "").lower()
+                    ev_name = ev.get("name", "").lower()
+                    
+                    if (ev_key and (ev_key in name_lower or ev_key in group_lower)) or \
+                       (ev_name and (ev_name in name_lower or ev_name in group_lower)):
+                        return folder
+                    # Semantic shortcuts (AC -> actividades_formativas, Control -> controles, etc.)
+                    if ("ac" in name_lower or "actividad" in name_lower) and ("actividad" in ev_key or "actividad" in ev_name or "ac" in ev_key):
+                        return folder
+                    if "control" in name_lower and ("control" in ev_key or "control" in ev_name):
+                        return folder
+                    if "tarea" in name_lower and ("tarea" in ev_key or "tarea" in ev_name):
+                        return folder
+                    if "proyecto" in name_lower and ("proyecto" in ev_key or "proyecto" in ev_name):
+                        return folder
+        except Exception:
+            pass
+
+    # 2. Dynamic fallback matching
+    if "ac" in name_lower or "actividad" in name_lower or "actividad" in group_lower:
+        return "actividades_formativas"
+    elif "control" in name_lower or "control" in group_lower:
+        return "controles"
+    elif "tarea" in name_lower or "tarea" in group_lower:
+        return "tareas"
+    elif "proyecto" in name_lower or "proyecto" in group_lower:
+        return "proyecto"
+    elif "lab" in name_lower or "laboratorio" in group_lower:
+        return "laboratorios"
+    elif group_name:
+        return clean_filename(group_name.lower().replace(" ", "_"))
+    
+    return ""
+
 async def setup_assignment(client, course_code, assignment_name):
     course_id, course_name = await get_course_id(client, course_code)
     if not course_id: return
@@ -98,9 +148,27 @@ async def setup_assignment(client, course_code, assignment_name):
         
     assignment = results[0] # Take the best match
     
+    # Fetch assignment group for semantic folder matching
+    group_name = ""
+    group_id = assignment.get("assignment_group_id")
+    if group_id:
+        try:
+            g_url = f"{api_url}/api/v1/courses/{course_id}/assignment_groups/{group_id}"
+            g_res = await client.get(g_url)
+            if g_res.status_code == 200:
+                group_name = g_res.json().get("name", "")
+        except Exception:
+            pass
+
+    category_folder = determine_category_folder(course_code, assignment, group_name)
     safe_name = clean_filename(assignment["name"])
     course_dir = WORKSPACE_DIR / course_code.upper()
-    assign_dir = course_dir / safe_name
+    
+    if category_folder:
+        assign_dir = course_dir / category_folder / safe_name
+    else:
+        assign_dir = course_dir / safe_name
+
     assign_dir.mkdir(parents=True, exist_ok=True)
     
     # 1. Save Instructions
@@ -110,6 +178,7 @@ title: "{assignment['name']}"
 course: "{course_code.upper()}"
 due_at: "{assignment.get('due_at')}"
 url: "{assignment.get('html_url')}"
+category: "{category_folder}"
 ---
 
 # {assignment['name']}
@@ -130,6 +199,7 @@ url: "{assignment.get('html_url')}"
         "assignment_id": assignment["id"],
         "course_id": course_id,
         "name": assignment["name"],
+        "category_folder": category_folder,
         "points_possible": assignment.get("points_possible")
     }
     with open(assign_dir / "workspace_meta.json", "w", encoding="utf-8") as f:

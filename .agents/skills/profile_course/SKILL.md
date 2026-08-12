@@ -14,50 +14,48 @@ Use this skill when you need to onboard a course at the start of a semester or w
 
 ## Detailed Steps
 
-### Step 1: Inspect Native Canvas Syllabus
-First, fetch the basic course info to check if a native Canvas HTML syllabus is available:
-```bash
-backend/venv/bin/python agents/core/canvas_tools.py get-course-info --course {COURSE_CODE}
-```
-* **If `syllabus_body` contains substantive text/HTML:**
-  Convert the HTML into Markdown format, add frontmatter (`title`, `course`), and save it to `agents/workspace/{COURSE_CODE}/programa_del_curso.md`. Proceed to **Step 3**.
-* **If `syllabus_body` is null or empty:** Proceed to **Step 2 (Agentic Discovery)**.
+### Step 1: Humanoid Agentic Exploration Across 4 Live Canvas Sources
+To locate the official Syllabus document, simulate human exploration across all 4 live Canvas sources:
+
+1. **Página de Inicio (`front_page`)**: Check course `default_view` and fetch `/front_page`. If it contains a Wiki page with syllabus content or external links (e.g. GitHub), extract it as a candidate.
+2. **Módulos e Ítems (`modules`)**: Query course modules and scan all items (File, Page, ExternalUrl) across **ALL modules**. Use agentic reasoning to identify potential syllabus candidates without any string filtering.
+3. **Archivos de la Asignatura (`files`)**: List uploaded course files and use **agentic reasoning and intelligence** to select candidate files representing the course syllabus, without restricting to fixed keyword lists.
+4. **Anuncios y Enlaces Externos (`announcements`)**: Scan course announcements for welcome messages containing external syllabus links (e.g. GitHub) or direct PDF links. **If an external GitHub repository link is found (e.g. `https://github.com/{org}/Syllabus`), navigate into the repository to fetch the official syllabus file (e.g. `IIC2523-Programa.pdf` or `README.md`).**
 
 ---
 
-### Step 2: Agentic Syllabus Discovery & Download
-When native Canvas syllabus body is missing, locate the syllabus file using **semantic agent reasoning** over Canvas API primitives.
+### Step 2: Semantic Context Verification & Official File Prioritization
+Before accepting any candidate file or text as the official Syllabus, perform **Semantic Context Verification** on its content:
 
-1. **List Course Files & Modules:**
-   ```bash
-   backend/venv/bin/python agents/core/canvas_tools.py list-files --course {COURSE_CODE}
-   backend/venv/bin/python agents/core/canvas_tools.py list-modules --course {COURSE_CODE}
-   ```
+1. **Standalone Official File Prioritization:** Always prioritize standalone official Syllabus documents (e.g., `programa.pdf`, `IIC2523-Programa.pdf`) over general introductory lecture slides (e.g., `Clase 00`).
+2. **Verification Criteria:** A candidate document MUST contain at least two of the following structural syllabus markers:
+   - Evaluation section or Grading formula (`Ncalc =`, `NF =`, `Ponderaciones`, `Interrogaciones`, `Tareas`, `Controles`, `Proyecto`).
+   - Learning objectives / Course description (`Objetivos`, `Resultados de aprendizaje`).
+   - Teaching team contacts (`Profesores`, `Ayudantes`, email addresses).
+   - Academic Integrity Policy or Honor Code.
 
-2. **Agent Reasoning & Selection:**
-   Inspect the JSON output returned from `list-files` and `list-modules`.
-   * **Look semantically** for any file representing the syllabus regardless of exact naming or language:
-     * Filenames matching: *Programa*, *Syllabus*, *Silabo*, *Reglas*, *Presentación*, *Overview*, *Introducción*, *Info_Curso*, or syllabus documents uploaded inside introductory modules (e.g. *"Semana 0"*, *"General"*, *"Información del Curso"*).
-   * **Identify the File ID:** Select the candidate item's `id`.
-
-3. **Download Candidate File:**
-   Run the primitive download command with the identified File ID:
-   ```bash
-   backend/venv/bin/python agents/core/canvas_tools.py download-file-by-id --file-id {FILE_ID} --dest agents/workspace/{COURSE_CODE}/programa_del_curso.pdf
-   ```
+3. **Download & Save Official Syllabus:**
+   - Once verified, save the official syllabus as `agents/workspace/{COURSE_CODE}/programa_del_curso.md` (if HTML/Markdown) or `agents/workspace/{COURSE_CODE}/programa_del_curso.pdf` (if PDF).
+   - If the candidate fails verification, discard it and continue scanning the next source.
 
 ---
 
-### Step 3: Read & Parse the Syllabus
-Read `programa_del_curso.md` (or extract text from `programa_del_curso.pdf` if it is a PDF) to extract key course information:
-1. **Grading Weights:** Percentage breakdown for all evaluations (e.g., Tareas: 30%, Interrogaciones: 40%, Proyecto: 30%).
-2. **Evaluation Components:** What types of evaluations exist in this course (Tareas, Laboratorios, Proyecto, Interrogaciones, Controles, etc.).
-3. **Contacts:** Professor and TA names and email addresses.
+### Step 3: Read & Parse the Syllabus (Primary Source of Truth)
+Read `programa_del_curso.md` (or extract text from `programa_del_curso.pdf` if it is a PDF) and apply pure humanoid agentic reasoning:
+
+> [!IMPORTANT]
+> **Syllabus-First & Zero-Hardcode Rule:** The Syllabus is the absolute primary source of truth. 
+> Read the evaluation section as a human student would. Do **NOT** rely on default Canvas LMS assignment group names if the Syllabus document specifies the course's actual evaluation components.
+
+1. **Humanoid Evaluation Discovery:** Analyze the evaluation and grading policy section directly from the Syllabus text. Identify whatever evaluation components the professor has defined for the course (regardless of naming terminology, grading formula variable names, or structure).
+2. **Dynamic Taxonomy & Folder Mapping:** For each evaluation component discovered, define a `key` (snake_case identifier), `name` (formal title), `folder` (sanitized snake_case directory name), `weight` (percentage if specified), and `details` (grading breakdown summary).
+3. **Canvas Assignment Groups Cross-Check (Fallback Only):** Query Canvas assignment groups only to resolve missing details or as a fallback if the Syllabus document lacks explicit evaluation information.
+4. **Teaching Team Extraction:** Extract Professor and TA names and contact email addresses directly from the Syllabus text.
 
 ---
 
 ### Step 4: Write the Course Profile
-Create `agents/workspace/{COURSE_CODE}/course_profile.json` with this structure:
+Create `agents/workspace/{COURSE_CODE}/course_profile.json` with this dynamic structure:
 ```json
 {
   "course_code": "{COURSE_CODE}",
@@ -70,25 +68,30 @@ Create `agents/workspace/{COURSE_CODE}/course_profile.json` with this structure:
       { "name": "TA Name", "email": "email@uc.cl" }
     ]
   },
-  "evaluations": {
-    "evaluation_type_1": {
+  "evaluations": [
+    {
+      "key": "actividades_formativas",
+      "name": "Actividades Formativas",
+      "folder": "actividades_formativas",
       "weight": 20,
-      "details": "Details about how it is graded"
+      "details": "Detalles de la evaluación o ponderación"
+    },
+    {
+      "key": "controles",
+      "name": "Controles",
+      "folder": "controles",
+      "weight": 20,
+      "details": "Controles semanales de lectura/clases"
     }
-  },
-  "structure": {
-    "has_tareas": true_or_false,
-    "has_laboratorios": true_or_false,
-    "has_proyecto": true_or_false,
-    "has_interrogaciones": true_or_false
-  }
+  ]
 }
 ```
 
 ---
 
-### Step 4.5: Register Dates to Master Calendar
-For every evaluation date identified in the syllabus (Interrogaciones, Examen, Controles, Entregas), execute `calendar_tools.py upsert-event` to register it into `agents/workspace/calendar.json`:
+### Step 4.5: Master Calendar Registration (Baseline Phase)
+For every evaluation date identified in the syllabus (Interrogaciones, Examen, Controles, Entregas, Hitos), execute `calendar_tools.py upsert-event` to establish the initial baseline in `agents/workspace/calendar.json` with `source: "syllabus"`:
+
 ```bash
 backend/venv/bin/python agents/core/calendar_tools.py upsert-event \
   --course {COURSE_CODE} \
@@ -98,16 +101,18 @@ backend/venv/bin/python agents/core/calendar_tools.py upsert-event \
   --source "syllabus"
 ```
 
+> [!NOTE]
+> **Dynamic Lifecycle Rule:** This initial registration creates an unívoco event ID (`{course_code}-{slug_title}`). Subsequent agent workflows (`setup_assignment` and *El Guardián*) will update this event idempotently when dates are confirmed by Canvas API (`source: "canvas_assignment"`) or modified via live announcements (`source: "announcement"`), recording the postponement or change reason in `details`.
+
 ---
 
-### Step 5: Scaffold Customized Directories
-Create **only** the active directories under `agents/workspace/{COURSE_CODE}/`:
-* If `has_tareas` is `true` -> Create `tareas/`
-* If `has_laboratorios` is `true` -> Create `laboratorios/`
-* If `has_proyecto` is `true` -> Create `proyecto/`
-* If `has_interrogaciones` is `true` -> Create `evaluaciones/`
+### Step 5: Dynamic Scaffolding of Directories
+Create **only** the active directories under `agents/workspace/{COURSE_CODE}/` by iterating over each evaluation category in `course_profile.json`:
+- For each item in `evaluations`: create the directory `agents/workspace/{COURSE_CODE}/{item.folder}/`.
 
-Do **not** create folders for components that do not exist in the course, keeping the workspace clean and clutter-free.
+Example: If `evaluations` contains entries with `folder` values `"actividades_formativas"` and `"controles"`, create `actividades_formativas/` and `controles/`.
+
+Do **not** hardcode folder names or create folders for non-existent evaluation types, keeping the workspace 100% clean, universal, and clutter-free.
 
 ---
 
