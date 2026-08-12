@@ -1,14 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import Sidebar from './components/Sidebar';
 import CourseGrid from './components/CourseGrid';
 import CalendarView from './components/CalendarView';
-
-const INITIAL_COURSES = [
-  { course_code: 'IIC2143', course_name: 'Ingeniería de Software' }
-];
+import { loadWorkspaceCourses } from './utils/courseLoader';
 
 export default function App() {
   const [activeView, setActiveView] = useState('ramos');
+  const courses = useMemo(() => loadWorkspaceCourses(), []);
 
   return (
     <div style={styles.appShell}>
@@ -19,7 +17,7 @@ export default function App() {
 
       <main className="main-content">
         {activeView === 'ramos' && (
-          <CourseGrid courses={INITIAL_COURSES} />
+          <CourseGrid courses={courses} />
         )}
         {activeView === 'calendar' && (
           <CalendarView />
