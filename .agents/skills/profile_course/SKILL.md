@@ -55,11 +55,12 @@ Read `programa_del_curso.md` (or extract text from `programa_del_curso.pdf` if i
 ---
 
 ### Step 4: Write the Course Profile
-Create `agents/workspace/{COURSE_CODE}/course_profile.json` with this dynamic structure:
+1. **Fetch Official Course Name:** Fetch the official `course_name` directly from the Canvas API (`GET /api/v1/courses/{COURSE_CODE}` property `name` or `canvas_tools.py get-course-info`), ensuring exact alignment with UC official course titles.
+2. **Write JSON:** Create `agents/workspace/{COURSE_CODE}/course_profile.json` with this dynamic structure:
 ```json
 {
   "course_code": "{COURSE_CODE}",
-  "course_name": "{COURSE_NAME}",
+  "course_name": "{OFFICIAL_CANVAS_COURSE_NAME}",
   "contacts": {
     "professors": [
       { "name": "Professor Name", "email": "email@uc.cl" }
