@@ -1,32 +1,65 @@
 import React, { useState, useMemo } from 'react';
 import Sidebar from './components/Sidebar';
+import CourseSubSidebar from './components/CourseSubSidebar';
 import CourseGrid from './components/CourseGrid';
+import CourseGeneralView from './components/CourseGeneralView';
 import CalendarView from './components/CalendarView';
 import { loadWorkspaceCourses } from './utils/courseLoader';
 
 export default function App() {
   const [activeView, setActiveView] = useState('ramos');
+  const [selectedCourse, setSelectedCourse] = useState(null);
   const courses = useMemo(() => loadWorkspaceCourses(), []);
+
+  const handleSelectCourse = (course) => {
+    setSelectedCourse(course);
+    setActiveView('ramos');
+  };
+
+  const handleBackToRamos = () => {
+    setSelectedCourse(null);
+  };
 
   return (
     <div style={styles.appShell}>
+      {/* Tier 1 Primary Sidebar */}
       <Sidebar
         activeView={activeView}
-        setActiveView={setActiveView}
+        setActiveView={(view) => {
+          setActiveView(view);
+          setSelectedCourse(null);
+        }}
+        collapsed={Boolean(selectedCourse)}
+        onBackToRamos={handleBackToRamos}
       />
 
-      <main className="main-content">
-        {activeView === 'ramos' && (
-          <CourseGrid courses={courses} />
-        )}
-        {activeView === 'calendar' && (
-          <CalendarView />
-        )}
-        {activeView === 'settings' && (
-          <div style={styles.placeholderContainer}>
-            <h2 style={styles.placeholderTitle}>Configuración</h2>
-            <p style={styles.placeholderText}>Opciones de configuración próximamente.</p>
-          </div>
+      {/* Tier 2 Secondary Course Sidebar */}
+      {selectedCourse && (
+        <CourseSubSidebar
+          course={selectedCourse}
+          onBack={handleBackToRamos}
+        />
+      )}
+
+      {/* Main Content Area */}
+      <main className={`main-content ${selectedCourse ? 'has-course' : ''}`}>
+        {selectedCourse ? (
+          <CourseGeneralView course={selectedCourse} />
+        ) : (
+          <>
+            {activeView === 'ramos' && (
+              <CourseGrid courses={courses} onSelectCourse={handleSelectCourse} />
+            )}
+            {activeView === 'calendar' && (
+              <CalendarView />
+            )}
+            {activeView === 'settings' && (
+              <div style={styles.placeholderContainer}>
+                <h2 style={styles.placeholderTitle}>Configuración</h2>
+                <p style={styles.placeholderText}>Opciones de configuración próximamente.</p>
+              </div>
+            )}
+          </>
         )}
       </main>
     </div>

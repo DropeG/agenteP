@@ -1,7 +1,7 @@
 import React from 'react';
 import CourseCard from './CourseCard';
 
-export default function CourseGrid({ courses = [] }) {
+export default function CourseGrid({ courses = [], onSelectCourse }) {
   if (!courses || courses.length === 0) {
     return (
       <div style={styles.emptyState}>
@@ -26,6 +26,7 @@ export default function CourseGrid({ courses = [] }) {
           <CourseCard
             key={course.course_code || course.id}
             course={course}
+            onSelect={onSelectCourse}
           />
         ))}
       </div>

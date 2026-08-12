@@ -28,10 +28,15 @@ export default function Sidebar({ activeView, setActiveView, collapsed = false, 
       {/* Primary Global Sidebar (Tier 1) */}
       <aside className={`sidebar-container ${collapsed ? 'sidebar-collapsed' : ''} ${mobileOpen ? 'mobile-open' : ''}`}>
         {/* Brand Header & Logo */}
-        <div style={{
-          ...styles.brandContainer,
-          ...(collapsed ? styles.brandContainerCollapsed : {})
-        }}>
+        <div 
+          onClick={() => handleSelect('ramos')}
+          style={{
+            ...styles.brandContainer,
+            ...(collapsed ? styles.brandContainerCollapsed : {}),
+            cursor: 'pointer'
+          }}
+          title="Mis Ramos"
+        >
           <div style={collapsed ? styles.logoWrapperCollapsed : styles.logoWrapper}>
             <img 
               src="/agente-p-logo.png" 

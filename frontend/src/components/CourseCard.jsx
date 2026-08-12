@@ -1,8 +1,15 @@
 import React from 'react';
 
-export default function CourseCard({ course }) {
+export default function CourseCard({ course, onSelect }) {
   return (
-    <div style={styles.card} className="course-card">
+    <div 
+      style={styles.card} 
+      className="course-card"
+      onClick={() => onSelect && onSelect(course)}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && onSelect && onSelect(course)}
+    >
       <div style={styles.header}>
         <span style={styles.sigla}>{course.course_code}</span>
       </div>
@@ -23,7 +30,8 @@ const styles = {
     gap: '8px',
     minHeight: '120px',
     transition: 'all 0.2s ease',
-    position: 'relative'
+    position: 'relative',
+    cursor: 'pointer'
   },
   header: {
     display: 'flex',
