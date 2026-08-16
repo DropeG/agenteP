@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { ArrowLeft, Info, CheckSquare } from 'lucide-react';
+import { getCoursePendingCount } from '../utils/taskLoader';
 
 export default function CourseSubSidebar({ course, onBack, activeTab = 'general', onSelectTab }) {
   if (!course) return null;
+
+  const pendingCount = useMemo(() => getCoursePendingCount(course.course_code), [course.course_code]);
 
   return (
     <aside className="course-sidebar" style={styles.sidebar}>
@@ -37,7 +40,7 @@ export default function CourseSubSidebar({ course, onBack, activeTab = 'general'
         >
           <CheckSquare size={16} />
           <span style={{ flex: 1 }}>Tareas</span>
-          <span style={styles.badgeCount}>2</span>
+          <span style={styles.badgeCount}>{pendingCount}</span>
         </button>
       </nav>
     </aside>

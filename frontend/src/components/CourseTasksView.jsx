@@ -1,104 +1,28 @@
-import React, { useState } from 'react';
-import { CheckCircle2, Circle, Calendar, AlertCircle, Check, Tag } from 'lucide-react';
+import React, { useMemo } from 'react';
+import { 
+  CheckCircle2, 
+  Circle, 
+  Calendar, 
+  AlertCircle, 
+  Check, 
+  Tag, 
+  Clock, 
+  Award,
+  ChevronDown,
+  ExternalLink,
+  FileText
+} from 'lucide-react';
+import { loadCourseTasks } from '../utils/taskLoader';
 
 export default function CourseTasksView({ course }) {
   if (!course) return null;
 
-  // Mock tasks tailored for UC courses or standard defaults
-  const courseTasks = {
-    IIC2523: {
-      pending: [
-        {
-          id: 'p1',
-          title: 'Entrega 1: Agente Conversacional en LangChain & Tools',
-          dueDate: '18 Ago, 23:59 hrs',
-          daysLeft: 'En 3 días',
-          urgent: true,
-          category: 'PROYECTO',
-          weight: '15%'
-        },
-        {
-          id: 'p2',
-          title: 'Control 2: Evaluaciones de LLMs y RAG Avanzado',
-          dueDate: '25 Ago, 23:59 hrs',
-          daysLeft: 'En 10 días',
-          urgent: false,
-          category: 'CONTROLES',
-          weight: '5%'
-        }
-      ],
-      completed: [
-        {
-          id: 'c1',
-          title: 'Actividad Formativa 1: Prompt Engineering y Estructura JSON',
-          completedDate: '04 Ago, 18:30 hrs',
-          category: 'ACTIVIDADES FORMATIVAS'
-        },
-        {
-          id: 'c2',
-          title: 'Tarea 0: Configuración de Entornos Python y OpenAI API',
-          completedDate: '01 Ago, 22:15 hrs',
-          category: 'PROYECTO'
-        }
-      ]
-    },
-    IIC2213: {
-      pending: [
-        {
-          id: 'p1',
-          title: 'Tarea 1: Algoritmos de Model Checking y SAT Solvers',
-          dueDate: '20 Ago, 23:59 hrs',
-          daysLeft: 'En 5 días',
-          urgent: false,
-          category: 'TAREAS',
-          weight: '20%'
-        }
-      ],
-      completed: [
-        {
-          id: 'c1',
-          title: 'Control 1: Lógica Proposicional y Tablas de Verdad',
-          completedDate: '08 Ago, 14:00 hrs',
-          category: 'CONTROLES'
-        }
-      ]
-    }
-  };
+  const { upcoming, past } = useMemo(
+    () => loadCourseTasks(course.course_code),
+    [course.course_code]
+  );
 
-  const defaultTasks = {
-    pending: [
-      {
-        id: 'p1',
-        title: 'Entrega de Avance 1',
-        dueDate: '20 Ago, 23:59 hrs',
-        daysLeft: 'En 5 días',
-        urgent: true,
-        category: 'PROYECTO',
-        weight: '15%'
-      },
-      {
-        id: 'p2',
-        title: 'Control Práctico de Contenido',
-        dueDate: '28 Ago, 23:59 hrs',
-        daysLeft: 'En 13 días',
-        urgent: false,
-        category: 'EVALUACIONES',
-        weight: '10%'
-      }
-    ],
-    completed: [
-      {
-        id: 'c1',
-        title: 'Actividad 1: Diagnóstico Inicial',
-        completedDate: '02 Ago, 20:00 hrs',
-        category: 'TAREAS'
-      }
-    ]
-  };
-
-  const tasksData = courseTasks[course.course_code] || defaultTasks;
-  const pendingTasks = tasksData.pending;
-  const completedTasks = tasksData.completed;
+  const totalTasks = upcoming.length + past.length;
 
   return (
     <div style={styles.container} className="course-tasks-view">
@@ -108,96 +32,205 @@ export default function CourseTasksView({ course }) {
         <h1 style={styles.courseTitle}>Tareas del Curso</h1>
         <div style={styles.statsRow}>
           <span style={styles.statPillPending}>
-            <span style={styles.dotPending} /> {pendingTasks.length} pendientes
+            <span style={styles.dotPending} /> {upcoming.length} próximas
           </span>
           <span style={styles.statPillCompleted}>
-            <span style={styles.dotCompleted} /> {completedTasks.length} completadas
+            <span style={styles.dotCompleted} /> {past.length} pasadas
           </span>
         </div>
       </div>
 
-      <div style={styles.sectionsLayout}>
-        {/* Section 1: Tareas por Hacer (Pendientes) */}
-        <section style={styles.section}>
-          <div style={styles.sectionHeader}>
-            <div style={styles.sectionTitleRow}>
-              <Circle size={16} style={{ color: 'var(--color-action-primary)' }} />
-              <h2 style={styles.sectionTitle}>Tareas por hacer ({pendingTasks.length})</h2>
-            </div>
-          </div>
-
-          <div style={styles.taskList}>
-            {pendingTasks.map((task) => (
-              <div key={task.id} style={styles.taskCardPending}>
-                <div style={styles.taskHeader}>
-                  <div style={styles.checkboxVisual} title="Marcar como completada">
-                    <Circle size={18} color="var(--color-text-muted)" />
-                  </div>
-                  <div style={styles.taskContent}>
-                    <h3 style={styles.taskTitle}>{task.title}</h3>
-                    <div style={styles.taskMetaRow}>
-                      <span style={styles.metaItem}>
-                        <Calendar size={13} style={{ marginRight: '4px' }} />
-                        Vence: {task.dueDate}
-                      </span>
-                      {task.urgent ? (
-                        <span style={styles.urgentBadge}>
-                          <AlertCircle size={12} style={{ marginRight: '3px' }} />
-                          {task.daysLeft}
-                        </span>
-                      ) : (
-                        <span style={styles.daysBadge}>{task.daysLeft}</span>
-                      )}
-                      {task.category && (
-                        <span style={styles.categoryBadge}>
-                          <Tag size={11} style={{ marginRight: '3px' }} />
-                          {task.category} {task.weight && `· ${task.weight}`}
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                </div>
+      {totalTasks === 0 ? (
+        <div style={styles.emptyState}>
+          <FileText size={36} color="var(--color-text-muted)" style={{ marginBottom: '12px' }} />
+          <h3 style={styles.emptyTitle}>No hay tareas registradas</h3>
+          <p style={styles.emptySubtitle}>
+            Aún no se han sincronizado tareas o evaluaciones para este curso en el workspace.
+          </p>
+        </div>
+      ) : (
+        <div style={styles.sectionsLayout}>
+          {/* Section 1: Próximas Tareas */}
+          <section style={styles.section}>
+            <div style={styles.sectionHeader}>
+              <div style={styles.sectionTitleRow}>
+                <Circle size={15} style={{ color: 'var(--color-action-primary)' }} />
+                <h2 style={styles.sectionTitle}>Próximas Tareas ({upcoming.length})</h2>
               </div>
-            ))}
-          </div>
-        </section>
-
-        {/* Section 2: Tareas ya hechas (Completadas) */}
-        <section style={styles.section}>
-          <div style={styles.sectionHeader}>
-            <div style={styles.sectionTitleRow}>
-              <CheckCircle2 size={16} style={{ color: 'var(--color-action-primary)' }} />
-              <h2 style={styles.sectionTitle}>Tareas ya hechas ({completedTasks.length})</h2>
             </div>
-          </div>
 
-          <div style={styles.taskList}>
-            {completedTasks.map((task) => (
-              <div key={task.id} style={styles.taskCardCompleted}>
-                <div style={styles.taskHeader}>
-                  <div style={styles.checkboxVisualCompleted} title="Tarea completada">
-                    <CheckCircle2 size={18} color="var(--color-action-primary)" />
-                  </div>
-                  <div style={styles.taskContent}>
-                    <h3 style={styles.taskTitleCompleted}>{task.title}</h3>
-                    <div style={styles.taskMetaRow}>
-                      <span style={styles.metaItemCompleted}>
-                        <Check size={12} style={{ marginRight: '4px', color: 'var(--color-action-primary)' }} />
-                        Entregado: {task.completedDate}
-                      </span>
-                      {task.category && (
-                        <span style={styles.categoryBadgeMuted}>
-                          {task.category}
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                </div>
+            {upcoming.length === 0 ? (
+              <div style={styles.emptySubSection}>
+                <CheckCircle2 size={16} color="var(--color-text-muted)" />
+                <span>No tienes tareas pendientes por ahora. ¡Al día!</span>
               </div>
-            ))}
-          </div>
-        </section>
-      </div>
+            ) : (
+              <div style={styles.taskList}>
+                {upcoming.map((task) => {
+                  const pointsText = task.points?.possible != null 
+                    ? `${task.points.possible} pts` 
+                    : null;
+
+                  return (
+                    <div key={task.id} style={styles.taskCardPending}>
+                      <div style={styles.taskHeader}>
+                        <div style={styles.checkboxVisual} title={task.status === 'submitted' ? 'Entregada' : 'Pendiente'}>
+                          {task.status === 'submitted' ? (
+                            <CheckCircle2 size={18} color="var(--color-action-primary)" />
+                          ) : (
+                            <Circle size={18} color="var(--color-text-muted)" />
+                          )}
+                        </div>
+                        <div style={styles.taskContent}>
+                          <div style={styles.taskTitleRow}>
+                            <h3 style={styles.taskTitle}>{task.title}</h3>
+                            {task.source?.url && (
+                              <a 
+                                href={task.source.url} 
+                                target="_blank" 
+                                rel="noreferrer" 
+                                style={styles.externalLink}
+                                title="Ver en Canvas"
+                              >
+                                <ExternalLink size={13} />
+                              </a>
+                            )}
+                          </div>
+
+                          <div style={styles.taskMetaRow}>
+                            {task.dates?.due_at && (
+                              <span style={styles.metaItem}>
+                                <Calendar size={13} style={{ marginRight: '4px' }} />
+                                Fecha de entrega: {task.formattedDue}
+                              </span>
+                            )}
+
+                            {task.dates?.unlock_at && task.dates.unlock_at !== task.dates.due_at && (
+                              <span style={styles.metaItemMuted}>
+                                <Clock size={12} style={{ marginRight: '4px' }} />
+                                Desde: {task.formattedUnlock}
+                              </span>
+                            )}
+
+                            {task.relativeTime && (
+                              <span style={task.urgent ? styles.urgentBadge : styles.daysBadge}>
+                                {task.urgent && <AlertCircle size={11} style={{ marginRight: '3px' }} />}
+                                {task.relativeTime}
+                              </span>
+                            )}
+
+                            {pointsText && (
+                              <span style={styles.pointsBadge}>
+                                <Award size={11} style={{ marginRight: '3px' }} />
+                                {pointsText}
+                              </span>
+                            )}
+
+                            {task.category && (
+                              <span style={styles.categoryBadge}>
+                                <Tag size={11} style={{ marginRight: '3px' }} />
+                                {task.category.toUpperCase().replace(/_/g, ' ')}
+                              </span>
+                            )}
+
+                            {task.status === 'submitted' && (
+                              <span style={styles.submittedBadge}>
+                                <Check size={11} style={{ marginRight: '3px' }} />
+                                Entregado
+                              </span>
+                            )}
+                          </div>
+
+                          {task.details?.description_md && (
+                            <p style={styles.taskDescription}>{task.details.description_md}</p>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </section>
+
+          {/* Section 2: Tareas Pasadas */}
+          <section style={styles.section}>
+            <div style={styles.sectionHeader}>
+              <div style={styles.sectionTitleRow}>
+                <CheckCircle2 size={15} style={{ color: 'var(--color-text-muted)' }} />
+                <h2 style={styles.sectionTitle}>Tareas Pasadas ({past.length})</h2>
+              </div>
+            </div>
+
+            {past.length === 0 ? (
+              <div style={styles.emptySubSection}>
+                <span>No hay tareas pasadas registradas.</span>
+              </div>
+            ) : (
+              <div style={styles.taskList}>
+                {past.map((task) => {
+                  const scoreDisplay = task.points?.score != null && task.points?.possible != null
+                    ? `${task.points.score}/${task.points.possible} pts`
+                    : task.points?.possible != null
+                    ? `${task.points.possible} pts`
+                    : null;
+
+                  return (
+                    <div key={task.id} style={styles.taskCardCompleted}>
+                      <div style={styles.taskHeader}>
+                        <div style={styles.checkboxVisualCompleted} title="Tarea pasada / cerrada">
+                          <CheckCircle2 size={18} color="var(--color-text-muted)" />
+                        </div>
+                        <div style={styles.taskContent}>
+                          <div style={styles.taskTitleRow}>
+                            <h3 style={styles.taskTitleCompleted}>{task.title}</h3>
+                            {task.source?.url && (
+                              <a 
+                                href={task.source.url} 
+                                target="_blank" 
+                                rel="noreferrer" 
+                                style={styles.externalLinkMuted}
+                                title="Ver en Canvas"
+                              >
+                                <ExternalLink size={13} />
+                              </a>
+                            )}
+                          </div>
+
+                          <div style={styles.taskMetaRow}>
+                            <span style={styles.closedBadge}>Cerrado</span>
+
+                            {task.dates?.due_at && (
+                              <span style={styles.metaItemCompleted}>
+                                <Calendar size={13} style={{ marginRight: '4px' }} />
+                                Venció: {task.formattedDue}
+                              </span>
+                            )}
+
+                            {scoreDisplay && (
+                              <span style={styles.pointsBadgeMuted}>
+                                <Award size={11} style={{ marginRight: '3px' }} />
+                                {scoreDisplay}
+                              </span>
+                            )}
+
+                            {task.category && (
+                              <span style={styles.categoryBadgeMuted}>
+                                <Tag size={11} style={{ marginRight: '3px' }} />
+                                {task.category.toUpperCase().replace(/_/g, ' ')}
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </section>
+        </div>
+      )}
     </div>
   );
 }
@@ -205,15 +238,16 @@ export default function CourseTasksView({ course }) {
 const styles = {
   container: {
     padding: '32px',
-    maxWidth: '1000px',
-    margin: '0 auto'
+    maxWidth: '960px',
+    margin: '0 auto',
+    width: '100%'
   },
   headerSection: {
     marginBottom: '28px'
   },
   siglaBadge: {
     display: 'inline-block',
-    fontSize: '13px',
+    fontSize: '12.5px',
     fontWeight: 700,
     fontFamily: 'var(--font-mono)',
     color: 'var(--color-action-primary)',
@@ -231,18 +265,18 @@ const styles = {
   },
   statsRow: {
     display: 'flex',
-    gap: '12px',
+    gap: '10px',
     alignItems: 'center'
   },
   statPillPending: {
     display: 'inline-flex',
     alignItems: 'center',
     gap: '6px',
-    fontSize: '12.5px',
+    fontSize: '12px',
     fontWeight: 500,
     color: 'var(--color-text-secondary)',
     backgroundColor: 'var(--color-surface-bg)',
-    padding: '4px 10px',
+    padding: '3px 10px',
     borderRadius: '12px',
     border: '1px solid var(--color-border)'
   },
@@ -256,11 +290,11 @@ const styles = {
     display: 'inline-flex',
     alignItems: 'center',
     gap: '6px',
-    fontSize: '12.5px',
+    fontSize: '12px',
     fontWeight: 500,
     color: 'var(--color-text-secondary)',
     backgroundColor: 'var(--color-surface-bg)',
-    padding: '4px 10px',
+    padding: '3px 10px',
     borderRadius: '12px',
     border: '1px solid var(--color-border)'
   },
@@ -268,7 +302,7 @@ const styles = {
     width: '7px',
     height: '7px',
     borderRadius: '50%',
-    backgroundColor: 'var(--color-action-primary)'
+    backgroundColor: 'var(--color-text-muted)'
   },
   sectionsLayout: {
     display: 'flex',
@@ -278,7 +312,7 @@ const styles = {
   section: {
     display: 'flex',
     flexDirection: 'column',
-    gap: '14px'
+    gap: '12px'
   },
   sectionHeader: {
     display: 'flex',
@@ -293,7 +327,7 @@ const styles = {
     gap: '8px'
   },
   sectionTitle: {
-    fontSize: '15px',
+    fontSize: '14.5px',
     fontWeight: 600,
     color: 'var(--color-text-primary)',
     letterSpacing: '-0.01em'
@@ -306,26 +340,25 @@ const styles = {
   taskCardPending: {
     backgroundColor: 'var(--color-elevated-surface)',
     border: '1px solid var(--color-border)',
-    borderRadius: '12px',
-    padding: '16px 20px',
+    borderRadius: '10px',
+    padding: '16px 18px',
     transition: 'all 0.15s ease',
-    boxShadow: '0 1px 3px rgba(0, 0, 0, 0.02)'
+    boxShadow: '0 1px 2px rgba(0, 0, 0, 0.02)'
   },
   taskCardCompleted: {
     backgroundColor: 'var(--color-surface-bg)',
     border: '1px solid var(--color-border)',
-    borderRadius: '12px',
+    borderRadius: '10px',
     padding: '14px 18px',
-    opacity: 0.9
+    opacity: 0.85
   },
   taskHeader: {
     display: 'flex',
     alignItems: 'flex-start',
-    gap: '14px'
+    gap: '12px'
   },
   checkboxVisual: {
     marginTop: '2px',
-    cursor: 'pointer',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -338,43 +371,69 @@ const styles = {
     justifyContent: 'center'
   },
   taskContent: {
-    flex: 1
+    flex: 1,
+    minWidth: 0
   },
-  taskTitle: {
-    fontSize: '15px',
-    fontWeight: 600,
-    color: 'var(--color-text-primary)',
-    lineHeight: 1.35,
+  taskTitleRow: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: '8px',
     marginBottom: '6px'
   },
-  taskTitleCompleted: {
+  taskTitle: {
     fontSize: '14.5px',
+    fontWeight: 600,
+    color: 'var(--color-text-primary)',
+    lineHeight: 1.35
+  },
+  taskTitleCompleted: {
+    fontSize: '14px',
     fontWeight: 500,
     color: 'var(--color-text-secondary)',
-    lineHeight: 1.35,
-    marginBottom: '6px',
-    textDecoration: 'line-through'
+    lineHeight: 1.35
+  },
+  externalLink: {
+    color: 'var(--color-text-muted)',
+    display: 'inline-flex',
+    alignItems: 'center',
+    padding: '2px',
+    borderRadius: '4px',
+    transition: 'color 0.15s ease'
+  },
+  externalLinkMuted: {
+    color: 'var(--color-text-muted)',
+    display: 'inline-flex',
+    alignItems: 'center',
+    opacity: 0.6
   },
   taskMetaRow: {
     display: 'flex',
     flexWrap: 'wrap',
     alignItems: 'center',
-    gap: '12px',
-    fontSize: '12.5px',
+    gap: '10px',
+    fontSize: '12px',
     color: 'var(--color-text-secondary)'
   },
   metaItem: {
     display: 'inline-flex',
     alignItems: 'center',
     fontFamily: 'var(--font-mono)',
-    fontSize: '12px',
+    fontSize: '11.5px',
     color: 'var(--color-text-secondary)'
+  },
+  metaItemMuted: {
+    display: 'inline-flex',
+    alignItems: 'center',
+    fontFamily: 'var(--font-mono)',
+    fontSize: '11.5px',
+    color: 'var(--color-text-muted)'
   },
   metaItemCompleted: {
     display: 'inline-flex',
     alignItems: 'center',
     fontFamily: 'var(--font-mono)',
-    fontSize: '12px',
+    fontSize: '11.5px',
     color: 'var(--color-text-muted)'
   },
   urgentBadge: {
@@ -386,8 +445,8 @@ const styles = {
     color: 'var(--brand-orange, #F99814)',
     backgroundColor: 'rgba(249, 152, 20, 0.08)',
     border: '1px solid rgba(249, 152, 20, 0.25)',
-    padding: '2px 8px',
-    borderRadius: '10px'
+    padding: '1px 7px',
+    borderRadius: '8px'
   },
   daysBadge: {
     fontSize: '11px',
@@ -396,31 +455,120 @@ const styles = {
     color: 'var(--color-text-muted)',
     backgroundColor: 'var(--color-surface-bg)',
     border: '1px solid var(--color-border)',
-    padding: '2px 8px',
-    borderRadius: '10px'
+    padding: '1px 7px',
+    borderRadius: '8px'
   },
-  categoryBadge: {
+  closedBadge: {
+    fontSize: '10.5px',
+    fontWeight: 600,
+    fontFamily: 'var(--font-mono)',
+    color: 'var(--color-text-muted)',
+    backgroundColor: 'var(--color-surface-bg)',
+    border: '1px solid var(--color-border)',
+    padding: '1px 6px',
+    borderRadius: '6px'
+  },
+  pointsBadge: {
     display: 'inline-flex',
     alignItems: 'center',
     fontSize: '11px',
     fontWeight: 600,
     fontFamily: 'var(--font-mono)',
-    color: 'var(--color-action-primary)',
+    color: 'var(--color-text-primary)',
     backgroundColor: 'var(--color-surface-bg)',
     border: '1px solid var(--color-border)',
-    padding: '2px 8px',
-    borderRadius: '10px'
+    padding: '1px 7px',
+    borderRadius: '8px'
   },
-  categoryBadgeMuted: {
+  pointsBadgeMuted: {
     display: 'inline-flex',
     alignItems: 'center',
     fontSize: '11px',
     fontWeight: 500,
     fontFamily: 'var(--font-mono)',
     color: 'var(--color-text-muted)',
+    backgroundColor: 'var(--color-surface-bg)',
+    border: '1px solid var(--color-border)',
+    padding: '1px 6px',
+    borderRadius: '6px'
+  },
+  categoryBadge: {
+    display: 'inline-flex',
+    alignItems: 'center',
+    fontSize: '10.5px',
+    fontWeight: 600,
+    fontFamily: 'var(--font-mono)',
+    color: 'var(--color-action-primary)',
+    backgroundColor: 'var(--color-surface-bg)',
+    border: '1px solid var(--color-border)',
+    padding: '1px 7px',
+    borderRadius: '8px'
+  },
+  categoryBadgeMuted: {
+    display: 'inline-flex',
+    alignItems: 'center',
+    fontSize: '10.5px',
+    fontWeight: 500,
+    fontFamily: 'var(--font-mono)',
+    color: 'var(--color-text-muted)',
     backgroundColor: 'var(--color-elevated-surface)',
     border: '1px solid var(--color-border)',
-    padding: '2px 8px',
-    borderRadius: '10px'
+    padding: '1px 6px',
+    borderRadius: '6px'
+  },
+  submittedBadge: {
+    display: 'inline-flex',
+    alignItems: 'center',
+    fontSize: '10.5px',
+    fontWeight: 600,
+    fontFamily: 'var(--font-mono)',
+    color: 'var(--color-action-primary)',
+    backgroundColor: 'rgba(0, 163, 166, 0.08)',
+    border: '1px solid rgba(0, 163, 166, 0.25)',
+    padding: '1px 7px',
+    borderRadius: '8px'
+  },
+  taskDescription: {
+    fontSize: '12.5px',
+    color: 'var(--color-text-secondary)',
+    lineHeight: 1.45,
+    marginTop: '8px',
+    padding: '8px 12px',
+    backgroundColor: 'var(--color-surface-bg)',
+    borderRadius: '6px',
+    border: '1px solid var(--color-border)'
+  },
+  emptyState: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: '48px 24px',
+    textAlign: 'center',
+    backgroundColor: 'var(--color-surface-bg)',
+    borderRadius: '12px',
+    border: '1px solid var(--color-border)'
+  },
+  emptyTitle: {
+    fontSize: '16px',
+    fontWeight: 600,
+    color: 'var(--color-text-primary)',
+    marginBottom: '6px'
+  },
+  emptySubtitle: {
+    fontSize: '13px',
+    color: 'var(--color-text-muted)',
+    maxWidth: '380px'
+  },
+  emptySubSection: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '8px',
+    fontSize: '12.5px',
+    color: 'var(--color-text-muted)',
+    padding: '14px 16px',
+    backgroundColor: 'var(--color-surface-bg)',
+    borderRadius: '8px',
+    border: '1px dashed var(--color-border)'
   }
 };

@@ -93,13 +93,22 @@ export default function Sidebar({ activeView, setActiveView, collapsed = false, 
           </button>
         </nav>
 
-        {/* Footer Info */}
+        {/* Footer Editorial Credits */}
         <div style={{
           ...styles.footer,
           ...(collapsed ? styles.footerCollapsed : {})
         }}>
-          <span style={styles.footerStatus} title="Engine Idle">●{!collapsed && ' Engine Idle'}</span>
-          {!collapsed && <span style={styles.footerVersion}>v1.0.0</span>}
+          <a
+            href="https://github.com/DropeG"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="sidebar-credit-link"
+            title="GitHub: @DropeG"
+            style={styles.creditLink}
+          >
+            {collapsed ? '©' : '© DROPE'}
+          </a>
+          {!collapsed && <span style={styles.footerVersion}>v1.0</span>}
         </div>
       </aside>
     </>
@@ -194,11 +203,17 @@ const styles = {
     justifyContent: 'center',
     paddingTop: '12px'
   },
-  footerStatus: {
-    color: 'var(--color-action-primary)',
-    fontWeight: 500
+  creditLink: {
+    color: 'var(--color-text-muted)',
+    fontSize: '12px',
+    fontWeight: 600,
+    letterSpacing: '0.02em',
+    textDecoration: 'none',
+    transition: 'color 0.15s ease'
   },
   footerVersion: {
-    fontFamily: 'var(--font-mono)'
+    fontFamily: 'var(--font-mono)',
+    fontSize: '11px',
+    color: 'var(--color-text-muted)'
   }
 };

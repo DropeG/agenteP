@@ -210,3 +210,8 @@ a {
   }
 }
 
+.sidebar-credit-link:hover {
+  color: var(--color-action-primary) !important;
+  text-decoration: underline;
+}
+
