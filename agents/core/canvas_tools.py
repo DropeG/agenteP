@@ -526,6 +526,83 @@ async def download_file_by_id(client, file_id, dest):
     except Exception as e:
         print(json.dumps({"error": f"Failed to download file: {str(e)}"}))
 
+async def upload_submission_file(client, course_code, assignment_name, file_path):
+    course_id, _ = await get_course_id(client, course_code)
+    if not course_id: return None
+
+    # Find assignment ID
+    url = f"{api_url}/api/v1/courses/{course_id}/assignments"
+    response = await client.get(url, params={"search_term": assignment_name, "per_page": 50})
+    response.raise_for_status()
+    results = response.json()
+    if not results:
+        print(f"❌ No assignment found matching '{assignment_name}'")
+        return None
+    assignment_id = results[0]["id"]
+    
+    path = Path(file_path)
+    if not path.exists():
+        print(f"❌ File not found at '{file_path}'")
+        return None
+        
+    file_size = path.stat().st_size
+    file_name = path.name
+    
+    # Step 1: Request upload URL
+    init_url = f"{api_url}/api/v1/courses/{course_id}/assignments/{assignment_id}/submissions/self/files"
+    init_res = await client.post(init_url, data={
+        "name": file_name,
+        "size": file_size,
+        "content_type": "application/zip" if file_name.endswith(".zip") else "application/octet-stream"
+    })
+    init_res.raise_for_status()
+    init_data = init_res.json()
+    
+    upload_url = init_data.get("upload_url")
+    upload_params = init_data.get("upload_params", {})
+    
+    # Step 2: Upload file data
+    with open(path, "rb") as f:
+        files = {"file": (file_name, f)}
+        upload_res = await client.post(upload_url, data=upload_params, files=files)
+        upload_res.raise_for_status()
+        res_data = upload_res.json()
+        print(f"✅ File '{file_name}' successfully staged/uploaded to Canvas (File ID: {res_data.get('id')}) without submitting.")
+        return res_data
+
+async def submit_assignment(client, course_code, assignment_name, file_path):
+    # 1. Upload the file first
+    uploaded_file = await upload_submission_file(client, course_code, assignment_name, file_path)
+    if not uploaded_file or "id" not in uploaded_file:
+        print("❌ Could not stage file for submission.")
+        return None
+
+    file_id = uploaded_file["id"]
+    course_id, _ = await get_course_id(client, course_code)
+    if not course_id: return None
+
+    # 2. Get assignment ID
+    url = f"{api_url}/api/v1/courses/{course_id}/assignments"
+    response = await client.get(url, params={"search_term": assignment_name, "per_page": 50})
+    response.raise_for_status()
+    results = response.json()
+    if not results:
+        print(f"❌ No assignment found matching '{assignment_name}'")
+        return None
+    assignment_id = results[0]["id"]
+
+    # 3. Post submission
+    sub_url = f"{api_url}/api/v1/courses/{course_id}/assignments/{assignment_id}/submissions"
+    sub_payload = {
+        "submission[submission_type]": "online_upload",
+        "submission[file_ids][]": [file_id]
+    }
+    sub_res = await client.post(sub_url, data=sub_payload)
+    sub_res.raise_for_status()
+    sub_data = sub_res.json()
+    print(f"🎉 Successfully submitted '{assignment_name}'! Attempt: {sub_data.get('attempt')}, Status: {sub_data.get('workflow_state')}")
+    return sub_data
+
 async def main():
     if not token:
         print("❌ Error: CANVAS_API_TOKEN not set!")
@@ -541,13 +618,16 @@ async def main():
         "setup-assignment",
         "download-file",
         "download-syllabus",
-        "sync-materials"
+        "sync-materials",
+        "upload-submission-file",
+        "submit-assignment"
     ])
     parser.add_argument("--course", help="Course Code (e.g. IIC2143)")
-    parser.add_argument("--assignment-name", help="Name of the assignment to setup")
+    parser.add_argument("--assignment-name", help="Name of the assignment to setup or target")
     parser.add_argument("--file-name", help="Name of the file to search and download")
     parser.add_argument("--file-id", help="Canvas File ID to download")
     parser.add_argument("--dest", help="Destination file path for download-file-by-id")
+    parser.add_argument("--file-path", help="Local file path to upload / submit")
     
     args = parser.parse_args()
     
@@ -588,6 +668,16 @@ async def main():
             await download_syllabus(client, args.course)
         elif args.command == "sync-materials":
             await sync_materials(client, args.course)
+        elif args.command == "upload-submission-file":
+            if not args.course or not args.assignment_name or not args.file_path:
+                print("❌ Error: --course, --assignment-name and --file-path are required for upload-submission-file")
+                return
+            await upload_submission_file(client, args.course, args.assignment_name, args.file_path)
+        elif args.command == "submit-assignment":
+            if not args.course or not args.assignment_name or not args.file_path:
+                print("❌ Error: --course, --assignment-name and --file-path are required for submit-assignment")
+                return
+            await submit_assignment(client, args.course, args.assignment_name, args.file_path)
 
 if __name__ == "__main__":
     asyncio.run(main())
