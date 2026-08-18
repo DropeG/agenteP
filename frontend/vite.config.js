@@ -11,6 +11,12 @@ export default defineConfig(({ mode }) => {
   return {
     plugins: [react()],
     server: {
+      fs: {
+        allow: ['..']
+      },
+      watch: {
+        ignored: ['!**/agents/workspace/**']
+      },
       proxy: {
         '/api/supabase': {
           target: `${supabaseUrl}/rest/v1`,

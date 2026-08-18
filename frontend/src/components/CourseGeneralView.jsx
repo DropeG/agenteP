@@ -69,13 +69,25 @@ export default function CourseGeneralView({ course }) {
               <h2 style={styles.cardTitle}>Regla de Evaluación y Notas</h2>
             </div>
 
-            {course.evaluations ? (
+            {Array.isArray(course.evaluations) && course.evaluations.length > 0 ? (
+              <div style={styles.evaluationsContainer}>
+                {course.evaluations.map((item, idx) => (
+                  <div key={item.key || idx} style={styles.evalItem}>
+                    <div style={styles.evalHeader}>
+                      <span style={styles.evalName}>{(item.name || item.key || '').toUpperCase()}</span>
+                      {item.weight != null && <span style={styles.evalWeight}>{item.weight}%</span>}
+                    </div>
+                    {item.details && <p style={styles.evalDetails}>{item.details}</p>}
+                  </div>
+                ))}
+              </div>
+            ) : course.evaluations && typeof course.evaluations === 'object' && Object.keys(course.evaluations).length > 0 ? (
               <div style={styles.evaluationsContainer}>
                 {Object.entries(course.evaluations).map(([key, item]) => (
                   <div key={key} style={styles.evalItem}>
                     <div style={styles.evalHeader}>
-                      <span style={styles.evalName}>{key.toUpperCase()}</span>
-                      {item.weight && <span style={styles.evalWeight}>{item.weight}%</span>}
+                      <span style={styles.evalName}>{(item.name || key).toUpperCase()}</span>
+                      {item.weight != null && <span style={styles.evalWeight}>{item.weight}%</span>}
                     </div>
                     {item.details && <p style={styles.evalDetails}>{item.details}</p>}
                   </div>

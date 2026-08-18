@@ -2,15 +2,16 @@ import React, { useState } from 'react';
 import { ChevronLeft, ChevronRight, Clock, MapPin, FileText, Tag, X, Calendar as CalendarIcon, BookOpen } from 'lucide-react';
 import rawEvents from '../../../agents/workspace/calendar.json';
 
-// Course code to course full name mapping
-const COURSE_NAMES = {
-  'IIC2523': 'Sistemas Distribuidos',
-  'EYP1027': 'Modelos Probabilísticos',
-  'IIC2213': 'Lógica para Ciencia de la Computación',
-  'IIC2143': 'Ingeniería de Software',
-  'IIC2173': 'Arquitectura de Sistemas de Software',
-  'IIC2513': 'Tecnologías y Aplicaciones Web'
-};
+import { loadWorkspaceCourses } from '../utils/courseLoader';
+
+// Build dynamic course code to course full name mapping
+const workspaceCourses = loadWorkspaceCourses();
+const COURSE_NAMES = workspaceCourses.reduce((acc, c) => {
+  if (c.course_code && c.course_name) {
+    acc[c.course_code.toUpperCase()] = c.course_name;
+  }
+  return acc;
+}, {});
 
 const MONTH_NAMES = [
   'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
