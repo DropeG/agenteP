@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { Activity, ChevronRight } from 'lucide-react';
+import { Activity, ChevronRight, Network } from 'lucide-react';
 import Sidebar from './components/Sidebar';
 import CourseSubSidebar from './components/CourseSubSidebar';
 import CourseGrid from './components/CourseGrid';
@@ -9,11 +9,12 @@ import CalendarView from './components/CalendarView';
 import SummaryView from './components/SummaryView';
 import { ThemeSelector } from './components/ThemeSelector';
 import CronMonitoringView from './components/CronMonitoringView';
+import SystemArchitectureView from './components/SystemArchitectureView';
 import { loadWorkspaceCourses } from './utils/courseLoader';
 
 export default function App() {
   const [activeView, setActiveView] = useState('ramos');
-  const [settingsSubView, setSettingsSubView] = useState('main'); // 'main' | 'crons'
+  const [settingsSubView, setSettingsSubView] = useState('main'); // 'main' | 'crons' | 'architecture'
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [activeCourseTab, setActiveCourseTab] = useState('general');
   const courses = useMemo(() => loadWorkspaceCourses(), []);
@@ -78,6 +79,8 @@ export default function App() {
             {activeView === 'settings' && (
               settingsSubView === 'crons' ? (
                 <CronMonitoringView onBack={() => setSettingsSubView('main')} />
+              ) : settingsSubView === 'architecture' ? (
+                <SystemArchitectureView onBack={() => setSettingsSubView('main')} />
               ) : (
                 <div style={styles.settingsContainer}>
                   <div style={styles.settingsHeader}>
@@ -92,8 +95,9 @@ export default function App() {
                     <ThemeSelector />
 
                     {/* Section 2: Advanced Settings */}
-                    <div style={styles.advancedSection}>
+                    <div style={styles.advancedSectionStack}>
                       <h3 style={styles.advancedSectionTitle}>Configuración Avanzada</h3>
+                      
                       <button
                         onClick={() => setSettingsSubView('crons')}
                         style={styles.advancedCard}
@@ -107,6 +111,25 @@ export default function App() {
                             <h4 style={styles.advancedCardTitle}>Automatizaciones & Crons</h4>
                             <p style={styles.advancedCardDesc}>
                               Monitorea los procesos en segundo plano, su estado y el registro de logs.
+                            </p>
+                          </div>
+                        </div>
+                        <ChevronRight size={18} color="var(--color-text-muted)" style={styles.advancedArrow} />
+                      </button>
+
+                      <button
+                        onClick={() => setSettingsSubView('architecture')}
+                        style={{ ...styles.advancedCard, marginTop: '12px' }}
+                        className="advanced-setting-card"
+                      >
+                        <div style={styles.advancedCardLeft}>
+                          <div style={styles.advancedIconWrapper}>
+                            <Network size={20} color="var(--brand-turquoise, var(--color-action-primary))" />
+                          </div>
+                          <div style={styles.advancedCardText}>
+                            <h4 style={styles.advancedCardTitle}>Arquitectura del Sistema</h4>
+                            <p style={styles.advancedCardDesc}>
+                              Explora cómo interactúan los crons, skills y vistas de Agente P.
                             </p>
                           </div>
                         </div>
