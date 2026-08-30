@@ -38,8 +38,24 @@ Agente P utiliza un sistema de diseño ultra-minimalista centrado en un 95% en t
 
 ## Typography
 
-- **Body & UI**: `Inter` (pesos: 400, 500, 600, 700).
-- **Código & Siglas de Ramos**: `JetBrains Mono` (pesos: 400, 500, 600).
+- **Body & UI**: `var(--font-sans)` (`Inter`, pesos: 400, 500, 600, 700).
+- **Código & Siglas de Ramos & Datos Numéricos**: `var(--font-mono)` (`JetBrains Mono`, pesos: 400, 500, 600).
+
+> **Regla de Oro**: Todos los componentes deben usar `var(--font-sans)` y `var(--font-mono)` en lugar de declarar nombres de fuentes directas.
+
+## Multi-Theme System (`data-theme`)
+
+Agente P soporta 7 temas dinámicos mediante atributos de datos `data-theme` en la etiqueta `<html>`:
+
+1. **Agente P** (`:root` default): Crema cálido con acento turquesa y marrón de Perry.
+2. **Light** (`data-theme="light"`): Blanco puro con acento azul moderno.
+3. **Dark** (`data-theme="dark"`): Gris oscuro carbón con acento azul suave.
+4. **Monokai** (`data-theme="monokai"`): Gris cálido con verde neón y rosa.
+5. **Dracula** (`data-theme="dracula"`): Púrpura noche con cian y rosa brillante.
+6. **O.W.C.A.** (`data-theme="owca"`): Negro y blanco absoluto con acento verde terminal.
+7. **Coffee** (`data-theme="coffee"`): Café tostado profundo con acentos dorados y crema.
+
+> **Regla de Oro**: Queda estrictamente prohibido hardcodear colores hexadecimales en los componentes. Siempre consumir las variables semánticas (`--color-page-bg`, `--color-surface-bg`, `--color-text-primary`, `--color-action-primary`, `--color-warning`, etc.).
 
 ## Components
 

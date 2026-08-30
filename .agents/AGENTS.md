@@ -28,6 +28,7 @@ Este archivo contiene las directrices específicas del proyecto AgenteP para gar
   3. Al hacer click en una tarjeta de ramo, esta se expande (abre un panel de detalle) para ver la actividad del agente de *ese* ramo en particular (sus tareas, logs de consola en JetBrains Mono y resúmenes).
 * **Navegación Lateral Simplificada**: Menú que solo contiene "Mis Ramos" y "Configuración".
 * **Diseño 100% Responsivo Obligatorio**: Todo el desarrollo de frontend DEBE ser completamente responsivo (adaptable a móviles, iPads/tablets y escritorio). En pantallas móviles o tablets, el menú lateral se transforma en un encabezado colapsable con botón hamburguesa, el grid de tarjetas se adapta dinámicamente y los paneles laterales ocupan el 100% del ancho.
+* **Uso Obligatorio de Design Tokens y Multi-Tema**: Todo componente frontend DEBE utilizar estrictamente las variables CSS semánticas de color (`var(--color-page-bg)`, `var(--color-surface-bg)`, `var(--color-elevated-surface)`, `var(--color-border)`, `var(--color-text-primary)`, `var(--color-text-secondary)`, `var(--color-action-primary)`, `var(--color-warning)`, etc.) y de tipografía (`var(--font-sans)`, `var(--font-mono)`). Queda estrictamente prohibido hardcodear valores hexadecimales (`#hex`), RGB o nombres de fuentes fijas en estilos en línea o componentes, garantizando que toda la interfaz se adapte perfectamente a cualquiera de los temas disponibles (Agente P, Light, Dark, Monokai, Dracula, O.W.C.A., Coffee).
 
 ---
 
