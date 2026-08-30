@@ -317,3 +317,15 @@ a {
   outline: 2px solid var(--color-focus-ring);
   outline-offset: 2px;
 }
+
+/* Advanced Setting Card Interactions */
+.advanced-setting-card:hover {
+  border-color: var(--color-action-primary) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+.advanced-setting-card:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}
+
