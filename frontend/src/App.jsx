@@ -5,6 +5,8 @@ import CourseGrid from './components/CourseGrid';
 import CourseGeneralView from './components/CourseGeneralView';
 import CourseTasksView from './components/CourseTasksView';
 import CalendarView from './components/CalendarView';
+import SummaryView from './components/SummaryView';
+import { ThemeSelector } from './components/ThemeSelector';
 import { loadWorkspaceCourses } from './utils/courseLoader';
 
 export default function App() {
@@ -64,10 +66,15 @@ export default function App() {
             {activeView === 'calendar' && (
               <CalendarView />
             )}
+            {activeView === 'summary' && (
+              <SummaryView />
+            )}
             {activeView === 'settings' && (
               <div style={styles.placeholderContainer}>
                 <h2 style={styles.placeholderTitle}>Configuración</h2>
-                <p style={styles.placeholderText}>Opciones de configuración próximamente.</p>
+                <div style={{ maxWidth: '800px', marginTop: '24px' }}>
+                  <ThemeSelector />
+                </div>
               </div>
             )}
           </>

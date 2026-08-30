@@ -394,9 +394,9 @@ const styles = {
     transition: 'border-color 0.15s ease'
   },
   todayCard: {
-    borderColor: '#08ACB1',
-    boxShadow: '0 0 0 1px #08ACB1',
-    backgroundColor: '#FFFFFF'
+    borderColor: 'var(--color-action-primary)',
+    boxShadow: '0 0 0 1px var(--color-action-primary)',
+    backgroundColor: 'var(--color-elevated-surface)'
   },
   dayCardHeader: {
     display: 'flex',
@@ -411,7 +411,7 @@ const styles = {
     color: 'var(--color-text-primary)'
   },
   todayNumber: {
-    color: '#08ACB1'
+    color: 'var(--color-action-primary)'
   },
   eventCountDot: {
     fontSize: '9px',
@@ -469,14 +469,14 @@ const styles = {
   },
   // Perry Accent Badges (≤5% acentos)
   badgeCritical: {
-    backgroundColor: '#FFF7ED',
-    borderColor: '#F99814',
-    color: '#8B3F0A'
+    backgroundColor: 'var(--color-surface-bg)',
+    borderColor: 'var(--color-warning)',
+    color: 'var(--color-warning)'
   },
   badgeTeal: {
-    backgroundColor: '#F0FDFA',
-    borderColor: '#08ACB1',
-    color: '#068E93'
+    backgroundColor: 'var(--color-surface-bg)',
+    borderColor: 'var(--color-action-primary)',
+    color: 'var(--color-action-primary)'
   },
   badgeNormal: {
     backgroundColor: 'var(--color-surface-bg)',
@@ -533,7 +533,7 @@ const styles = {
     gap: '8px',
     fontSize: '13px',
     fontWeight: 600,
-    color: '#08ACB1',
+    color: 'var(--color-action-primary)',
     marginBottom: '8px'
   },
   closeBtn: {
