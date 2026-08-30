@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BookOpen, Calendar, Settings, Menu, X } from 'lucide-react';
+import { BookOpen, Calendar, FileText, Settings, Menu, X } from 'lucide-react';
 
 export default function Sidebar({ activeView, setActiveView, collapsed = false, onBackToRamos }) {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -77,6 +77,19 @@ export default function Sidebar({ activeView, setActiveView, collapsed = false, 
           >
             <Calendar size={18} style={styles.navIcon} />
             {!collapsed && <span>Calendario</span>}
+          </button>
+
+          <button
+            onClick={() => handleSelect('summary')}
+            title="Resumen"
+            style={{
+              ...styles.navItem,
+              ...(collapsed ? styles.navItemCollapsed : {}),
+              ...(activeView === 'summary' ? styles.navItemActive : {})
+            }}
+          >
+            <FileText size={18} style={styles.navIcon} />
+            {!collapsed && <span>Resumen</span>}
           </button>
 
           <button
