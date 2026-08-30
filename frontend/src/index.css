@@ -215,3 +215,14 @@ a {
   text-decoration: underline;
 }
 
+/* Course Card Interactions */
+.course-card:hover {
+  border-color: var(--color-action-primary) !important;
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(69, 36, 15, 0.08); /* Slightly deeper dark brown shadow */
+}
+
+.course-card:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}
