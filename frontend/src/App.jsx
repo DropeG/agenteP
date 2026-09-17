@@ -31,7 +31,7 @@ export default function App() {
   };
 
   return (
-    <div style={styles.appShell}>
+    <div className={`app-shell ${selectedCourse ? 'has-course' : ''}`} style={styles.appShell}>
       {/* Tier 1 Primary Sidebar */}
       <Sidebar
         activeView={activeView}
@@ -149,7 +149,6 @@ export default function App() {
 
 const styles = {
   appShell: {
-    display: 'flex',
     minHeight: '100vh',
     backgroundColor: 'var(--color-page-bg)'
   },

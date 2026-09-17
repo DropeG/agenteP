@@ -5,15 +5,15 @@ import calendarEvents from '../../../agents/workspace/calendar.json';
 export default function CourseGeneralView({ course }) {
   const [copiedEmail, setCopiedEmail] = useState(null);
 
-  if (!course) return null;
-
   // Filter calendar events for this course
   const courseEvents = useMemo(() => {
-    if (!calendarEvents || !Array.isArray(calendarEvents)) return [];
+    if (!course || !calendarEvents || !Array.isArray(calendarEvents)) return [];
     return calendarEvents.filter(
       (evt) => evt.course_code?.toUpperCase() === course.course_code?.toUpperCase()
     ).sort((a, b) => new Date(a.date) - new Date(b.date));
-  }, [course.course_code]);
+  }, [course]);
+
+  if (!course) return null;
 
   const handleCopyEmail = (email) => {
     navigator.clipboard.writeText(email);
@@ -50,7 +50,7 @@ export default function CourseGeneralView({ course }) {
         <h1 style={styles.courseTitle}>{course.course_name}</h1>
       </div>
 
-      <div style={styles.gridContent}>
+      <div style={styles.gridContent} className="course-general-grid">
         {/* Left Column: Description & Evaluations */}
         <div style={styles.mainColumn}>
           {/* Description Section */}

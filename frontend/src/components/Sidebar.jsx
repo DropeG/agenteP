@@ -30,6 +30,7 @@ export default function Sidebar({ activeView, setActiveView, collapsed = false, 
         {/* Brand Header & Logo */}
         <div 
           onClick={() => handleSelect('ramos')}
+          className="sidebar-brand-header"
           style={{
             ...styles.brandContainer,
             ...(collapsed ? styles.brandContainerCollapsed : {}),
@@ -37,25 +38,24 @@ export default function Sidebar({ activeView, setActiveView, collapsed = false, 
           }}
           title="Mis Ramos"
         >
-          <div style={collapsed ? styles.logoWrapperCollapsed : styles.logoWrapper}>
+          <div style={collapsed ? styles.logoWrapperCollapsed : styles.logoWrapper} className="sidebar-logo-wrapper">
             <img 
               src="/agente-p-logo.png" 
               alt="Agente P Logo" 
               style={styles.logoImage} 
             />
           </div>
-          {!collapsed && (
-            <div style={styles.brandTitleGroup}>
-              <h1 style={styles.brandTitle}>Agente P</h1>
-            </div>
-          )}
+          <div className="sidebar-brand-title-group" style={styles.brandTitleGroup}>
+            <h1 style={styles.brandTitle}>Agente P</h1>
+          </div>
         </div>
 
         {/* Navigation Menu */}
-        <nav style={styles.nav}>
+        <nav style={styles.nav} className="sidebar-nav">
           <button
             onClick={() => handleSelect('ramos')}
             title="Mis Ramos"
+            className={`sidebar-nav-item ${collapsed ? 'collapsed' : ''} ${activeView === 'ramos' ? 'active' : ''}`}
             style={{
               ...styles.navItem,
               ...(collapsed ? styles.navItemCollapsed : {}),
@@ -63,12 +63,13 @@ export default function Sidebar({ activeView, setActiveView, collapsed = false, 
             }}
           >
             <BookOpen size={18} style={styles.navIcon} />
-            {!collapsed && <span>Mis Ramos</span>}
+            <span className="sidebar-nav-label">Mis Ramos</span>
           </button>
 
           <button
             onClick={() => handleSelect('calendar')}
             title="Calendario"
+            className={`sidebar-nav-item ${collapsed ? 'collapsed' : ''} ${activeView === 'calendar' ? 'active' : ''}`}
             style={{
               ...styles.navItem,
               ...(collapsed ? styles.navItemCollapsed : {}),
@@ -76,12 +77,13 @@ export default function Sidebar({ activeView, setActiveView, collapsed = false, 
             }}
           >
             <Calendar size={18} style={styles.navIcon} />
-            {!collapsed && <span>Calendario</span>}
+            <span className="sidebar-nav-label">Calendario</span>
           </button>
 
           <button
             onClick={() => handleSelect('summary')}
             title="Resumen"
+            className={`sidebar-nav-item ${collapsed ? 'collapsed' : ''} ${activeView === 'summary' ? 'active' : ''}`}
             style={{
               ...styles.navItem,
               ...(collapsed ? styles.navItemCollapsed : {}),
@@ -89,12 +91,13 @@ export default function Sidebar({ activeView, setActiveView, collapsed = false, 
             }}
           >
             <FileText size={18} style={styles.navIcon} />
-            {!collapsed && <span>Resumen</span>}
+            <span className="sidebar-nav-label">Resumen</span>
           </button>
 
           <button
             onClick={() => handleSelect('settings')}
             title="Configuración"
+            className={`sidebar-nav-item ${collapsed ? 'collapsed' : ''} ${activeView === 'settings' ? 'active' : ''}`}
             style={{
               ...styles.navItem,
               ...(collapsed ? styles.navItemCollapsed : {}),
@@ -102,15 +105,18 @@ export default function Sidebar({ activeView, setActiveView, collapsed = false, 
             }}
           >
             <Settings size={18} style={styles.navIcon} />
-            {!collapsed && <span>Configuración</span>}
+            <span className="sidebar-nav-label">Configuración</span>
           </button>
         </nav>
 
         {/* Footer Editorial Credits */}
-        <div style={{
-          ...styles.footer,
-          ...(collapsed ? styles.footerCollapsed : {})
-        }}>
+        <div 
+          className="sidebar-footer"
+          style={{
+            ...styles.footer,
+            ...(collapsed ? styles.footerCollapsed : {})
+          }}
+        >
           <a
             href="https://github.com/DropeG"
             target="_blank"
@@ -119,9 +125,10 @@ export default function Sidebar({ activeView, setActiveView, collapsed = false, 
             title="GitHub: @DropeG"
             style={styles.creditLink}
           >
-            {collapsed ? '©' : '© DROPE'}
+            <span className="sidebar-credit-full">© DROPE</span>
+            <span className="sidebar-credit-collapsed">©</span>
           </a>
-          {!collapsed && <span style={styles.footerVersion}>v1.0</span>}
+          <span className="sidebar-footer-version" style={styles.footerVersion}>v1.0</span>
         </div>
       </aside>
     </>
