@@ -30,7 +30,7 @@ export default function Sidebar({ activeView, setActiveView, collapsed = false, 
         {/* Brand Header & Logo */}
         <div 
           onClick={() => handleSelect('ramos')}
-          className="sidebar-brand-header"
+          className={`sidebar-brand-header ${collapsed ? 'collapsed' : ''}`}
           style={{
             ...styles.brandContainer,
             ...(collapsed ? styles.brandContainerCollapsed : {}),
@@ -45,7 +45,13 @@ export default function Sidebar({ activeView, setActiveView, collapsed = false, 
               style={styles.logoImage} 
             />
           </div>
-          <div className="sidebar-brand-title-group" style={styles.brandTitleGroup}>
+          <div 
+            className="sidebar-brand-title-group" 
+            style={{
+              ...styles.brandTitleGroup,
+              ...(collapsed ? { display: 'none' } : {})
+            }}
+          >
             <h1 style={styles.brandTitle}>Agente P</h1>
           </div>
         </div>
@@ -146,7 +152,8 @@ const styles = {
   brandContainerCollapsed: {
     justifyContent: 'center',
     padding: 0,
-    marginBottom: '24px'
+    marginBottom: '24px',
+    gap: 0
   },
   logoWrapper: {
     width: '64px',
@@ -161,7 +168,8 @@ const styles = {
     height: '36px',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    flexShrink: 0
   },
   logoImage: {
     width: '100%',
