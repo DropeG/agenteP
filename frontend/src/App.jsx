@@ -1,20 +1,21 @@
 import React, { useState, useMemo } from 'react';
-import { Activity, ChevronRight, Network } from 'lucide-react';
 import Sidebar from './components/Sidebar';
 import CourseSubSidebar from './components/CourseSubSidebar';
 import CourseGrid from './components/CourseGrid';
 import CourseGeneralView from './components/CourseGeneralView';
 import CourseTasksView from './components/CourseTasksView';
+import CourseGradesView from './components/CourseGradesView';
 import CalendarView from './components/CalendarView';
 import SummaryView from './components/SummaryView';
+import OnboardingModal from './components/OnboardingModal';
 import { ThemeSelector } from './components/ThemeSelector';
-import CronMonitoringView from './components/CronMonitoringView';
-import SystemArchitectureView from './components/SystemArchitectureView';
 import { loadWorkspaceCourses } from './utils/courseLoader';
+import { getStoredAuth, clearAuth } from './utils/auth';
+import { Key, LogOut, CheckCircle2, User } from 'lucide-react';
 
 export default function App() {
+  const [auth, setAuth] = useState(() => getStoredAuth());
   const [activeView, setActiveView] = useState('ramos');
-  const [settingsSubView, setSettingsSubView] = useState('main'); // 'main' | 'crons' | 'architecture'
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [activeCourseTab, setActiveCourseTab] = useState('general');
   const courses = useMemo(() => loadWorkspaceCourses(), []);
@@ -30,6 +31,18 @@ export default function App() {
     setActiveCourseTab('general');
   };
 
+  const handleLogout = () => {
+    if (window.confirm('¿Deseas desconectar tu token de Canvas UC? Podrás volver a ingresarlo cuando quieras.')) {
+      clearAuth();
+      setAuth(null);
+    }
+  };
+
+  // If no auth token is configured (e.g., first run on a friend's machine), show onboarding
+  if (!auth) {
+    return <OnboardingModal onAuthSuccess={(authData) => setAuth(authData)} />;
+  }
+
   return (
     <div className={`app-shell ${selectedCourse ? 'has-course' : ''}`} style={styles.appShell}>
       {/* Tier 1 Primary Sidebar */}
@@ -39,12 +52,10 @@ export default function App() {
           setActiveView(view);
           setSelectedCourse(null);
           setActiveCourseTab('general');
-          if (view === 'settings') {
-            setSettingsSubView('main');
-          }
         }}
         collapsed={Boolean(selectedCourse)}
         onBackToRamos={handleBackToRamos}
+        currentUser={auth?.user}
       />
 
       {/* Tier 2 Secondary Course Sidebar */}
@@ -62,6 +73,8 @@ export default function App() {
         {selectedCourse ? (
           activeCourseTab === 'tasks' ? (
             <CourseTasksView course={selectedCourse} />
+          ) : activeCourseTab === 'grades' ? (
+            <CourseGradesView course={selectedCourse} />
           ) : (
             <CourseGeneralView course={selectedCourse} />
           )
@@ -77,68 +90,76 @@ export default function App() {
               <SummaryView />
             )}
             {activeView === 'settings' && (
-              settingsSubView === 'crons' ? (
-                <CronMonitoringView onBack={() => setSettingsSubView('main')} />
-              ) : settingsSubView === 'architecture' ? (
-                <SystemArchitectureView onBack={() => setSettingsSubView('main')} />
-              ) : (
-                <div style={styles.settingsContainer}>
-                  <div style={styles.settingsHeader}>
-                    <h2 style={styles.settingsTitle}>Configuración</h2>
-                    <p style={styles.settingsSubtitle}>
-                      Ajustes generales, personalización y herramientas avanzadas del sistema.
-                    </p>
-                  </div>
+              <div style={styles.settingsContainer}>
+                <div style={styles.settingsHeader}>
+                  <h2 style={styles.settingsTitle}>Configuración</h2>
+                  <p style={styles.settingsSubtitle}>
+                    Ajustes generales, cuenta de Canvas UC y personalización del sistema.
+                  </p>
+                </div>
 
-                  <div style={styles.settingsSectionStack}>
-                    {/* Section 1: Themes */}
-                    <ThemeSelector />
-
-                    {/* Section 2: Advanced Settings */}
-                    <div style={styles.advancedSectionStack}>
-                      <h3 style={styles.advancedSectionTitle}>Configuración Avanzada</h3>
-                      
-                      <button
-                        onClick={() => setSettingsSubView('crons')}
-                        style={styles.advancedCard}
-                        className="advanced-setting-card"
-                      >
-                        <div style={styles.advancedCardLeft}>
-                          <div style={styles.advancedIconWrapper}>
-                            <Activity size={20} color="var(--color-action-primary)" />
-                          </div>
-                          <div style={styles.advancedCardText}>
-                            <h4 style={styles.advancedCardTitle}>Automatizaciones & Crons</h4>
-                            <p style={styles.advancedCardDesc}>
-                              Monitorea los procesos en segundo plano, su estado y el registro de logs.
-                            </p>
-                          </div>
+                <div style={styles.settingsSectionStack}>
+                  {/* Section: Canvas UC Account */}
+                  <div style={styles.accountCard}>
+                    <div style={styles.accountHeader}>
+                      <div style={styles.accountIconCircle}>
+                        <Key size={18} color="var(--color-action-primary)" />
+                      </div>
+                      <div style={{ flex: 1 }}>
+                        <div style={styles.accountCardTitle}>Cuenta de Canvas UC</div>
+                        <div style={styles.accountCardSubtitle}>
+                          Conexión activa con la plataforma institucional de la universidad.
                         </div>
-                        <ChevronRight size={18} color="var(--color-text-muted)" style={styles.advancedArrow} />
-                      </button>
+                      </div>
+                      <div style={styles.statusBadge}>
+                        <CheckCircle2 size={13} color="var(--color-agent-completed)" />
+                        <span style={styles.statusBadgeText}>Conectado</span>
+                      </div>
+                    </div>
 
-                      <button
-                        onClick={() => setSettingsSubView('architecture')}
-                        style={{ ...styles.advancedCard, marginTop: '12px' }}
-                        className="advanced-setting-card"
-                      >
-                        <div style={styles.advancedCardLeft}>
-                          <div style={styles.advancedIconWrapper}>
-                            <Network size={20} color="var(--brand-turquoise, var(--color-action-primary))" />
+                    <div style={styles.accountBody}>
+                      <div style={styles.userRow}>
+                        {auth.user?.avatar_url ? (
+                          <img 
+                            src={auth.user.avatar_url} 
+                            alt={auth.user.name} 
+                            style={styles.accountAvatar} 
+                          />
+                        ) : (
+                          <div style={styles.accountAvatarFallback}>
+                            <User size={18} color="var(--color-text-secondary)" />
                           </div>
-                          <div style={styles.advancedCardText}>
-                            <h4 style={styles.advancedCardTitle}>Arquitectura del Sistema</h4>
-                            <p style={styles.advancedCardDesc}>
-                              Explora cómo interactúan los crons, skills y vistas de Agente P.
-                            </p>
-                          </div>
+                        )}
+                        <div style={styles.accountDetails}>
+                          <div style={styles.accountName}>{auth.user?.name || 'Estudiante UC'}</div>
+                          <div style={styles.accountEmail}>{auth.user?.email || 'estudiante@uc.cl'}</div>
                         </div>
-                        <ChevronRight size={18} color="var(--color-text-muted)" style={styles.advancedArrow} />
-                      </button>
+                      </div>
+
+                      <div style={styles.tokenRow}>
+                        <span style={styles.tokenLabel}>Token activo:</span>
+                        <code style={styles.tokenCode}>
+                          {auth.token ? `${auth.token.slice(0, 8)}••••••••••••••••••••••••` : '••••••••'}
+                        </code>
+                      </div>
+
+                      <div style={styles.accountActions}>
+                        <button
+                          type="button"
+                          onClick={handleLogout}
+                          style={styles.logoutButton}
+                        >
+                          <LogOut size={15} style={{ marginRight: '6px' }} />
+                          <span>Cambiar Token / Desconectar</span>
+                        </button>
+                      </div>
                     </div>
                   </div>
+
+                  {/* Section: Themes */}
+                  <ThemeSelector />
                 </div>
-              )
+              </div>
             )}
           </>
         )}
@@ -178,63 +199,139 @@ const styles = {
     flexDirection: 'column',
     gap: '24px'
   },
-  advancedSection: {
-    marginTop: '8px'
-  },
-  advancedSectionTitle: {
-    fontSize: '13px',
-    fontWeight: 700,
-    textTransform: 'uppercase',
-    letterSpacing: '0.04em',
-    color: 'var(--color-text-muted)',
-    marginBottom: '12px'
-  },
-  advancedCard: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    width: '100%',
-    padding: '18px 20px',
-    backgroundColor: 'var(--color-surface-bg)',
+  accountCard: {
+    backgroundColor: 'var(--color-elevated-surface)',
     border: '1px solid var(--color-border)',
     borderRadius: '12px',
-    cursor: 'pointer',
-    textAlign: 'left',
-    transition: 'all 0.15s ease'
+    padding: '24px',
+    boxShadow: '0 1px 3px rgba(0, 0, 0, 0.02)'
   },
-  advancedCardLeft: {
+  accountHeader: {
     display: 'flex',
     alignItems: 'center',
-    gap: '16px'
+    gap: '12px',
+    marginBottom: '20px'
   },
-  advancedIconWrapper: {
+  accountIconCircle: {
+    width: '36px',
+    height: '36px',
+    borderRadius: '8px',
+    backgroundColor: 'var(--color-surface-bg)',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexShrink: 0
+  },
+  accountCardTitle: {
+    fontSize: '15px',
+    fontWeight: 600,
+    color: 'var(--color-text-primary)',
+    fontFamily: 'var(--font-sans)'
+  },
+  accountCardSubtitle: {
+    fontSize: '12px',
+    color: 'var(--color-text-secondary)',
+    fontFamily: 'var(--font-sans)',
+    marginTop: '2px'
+  },
+  statusBadge: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '6px',
+    padding: '4px 10px',
+    borderRadius: '16px',
+    backgroundColor: 'var(--color-surface-bg)',
+    border: '1px solid var(--color-border)'
+  },
+  statusBadgeText: {
+    fontSize: '11px',
+    fontWeight: 600,
+    color: 'var(--color-agent-completed)',
+    fontFamily: 'var(--font-sans)'
+  },
+  accountBody: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '16px',
+    paddingTop: '16px',
+    borderTop: '1px solid var(--color-border)'
+  },
+  userRow: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '12px'
+  },
+  accountAvatar: {
     width: '40px',
     height: '40px',
-    borderRadius: '8px',
-    backgroundColor: 'var(--color-elevated-surface)',
+    borderRadius: '50%',
+    objectFit: 'cover',
+    border: '1px solid var(--color-border)',
+    flexShrink: 0
+  },
+  accountAvatarFallback: {
+    width: '40px',
+    height: '40px',
+    borderRadius: '50%',
+    backgroundColor: 'var(--color-surface-bg)',
     border: '1px solid var(--color-border)',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     flexShrink: 0
   },
-  advancedCardText: {
+  accountDetails: {
     display: 'flex',
-    flexDirection: 'column',
-    gap: '2px'
+    flexDirection: 'column'
   },
-  advancedCardTitle: {
-    fontSize: '15px',
+  accountName: {
+    fontSize: '14px',
     fontWeight: 600,
+    color: 'var(--color-text-primary)',
+    fontFamily: 'var(--font-sans)'
+  },
+  accountEmail: {
+    fontSize: '12px',
+    color: 'var(--color-text-muted)',
+    fontFamily: 'var(--font-mono)',
+    marginTop: '2px'
+  },
+  tokenRow: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '10px',
+    fontSize: '12px',
+    color: 'var(--color-text-secondary)',
+    fontFamily: 'var(--font-sans)'
+  },
+  tokenLabel: {
+    fontWeight: 500
+  },
+  tokenCode: {
+    fontFamily: 'var(--font-mono)',
+    fontSize: '11px',
+    padding: '3px 8px',
+    borderRadius: '6px',
+    backgroundColor: 'var(--color-surface-bg)',
+    border: '1px solid var(--color-border)',
     color: 'var(--color-text-primary)'
   },
-  advancedCardDesc: {
-    fontSize: '13px',
-    color: 'var(--color-text-secondary)',
-    lineHeight: 1.4
+  accountActions: {
+    marginTop: '4px'
   },
-  advancedArrow: {
-    flexShrink: 0,
-    marginLeft: '12px'
+  logoutButton: {
+    display: 'inline-flex',
+    alignItems: 'center',
+    padding: '8px 14px',
+    borderRadius: '6px',
+    backgroundColor: 'var(--color-surface-bg)',
+    border: '1px solid var(--color-border)',
+    color: 'var(--color-text-primary)',
+    fontSize: '12px',
+    fontWeight: 500,
+    cursor: 'pointer',
+    fontFamily: 'var(--font-sans)',
+    transition: 'all 0.15s ease'
   }
 };
+

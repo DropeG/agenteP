@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { ArrowLeft, Info, CheckSquare } from 'lucide-react';
+import { ArrowLeft, Info, CheckSquare, Calculator } from 'lucide-react';
 import { getCoursePendingCount } from '../utils/taskLoader';
 
 export default function CourseSubSidebar({ course, onBack, activeTab = 'general', onSelectTab }) {
@@ -45,6 +45,14 @@ export default function CourseSubSidebar({ course, onBack, activeTab = 'general'
           <CheckSquare size={16} />
           <span className="course-nav-tab-label">Tareas</span>
           <span className="course-nav-badge">{pendingCount}</span>
+        </button>
+        <button 
+          onClick={() => onSelectTab && onSelectTab('grades')}
+          className={`course-nav-item ${activeTab === 'grades' ? 'active' : ''}`}
+          title="Notas"
+        >
+          <Calculator size={16} />
+          <span className="course-nav-tab-label">Notas</span>
         </button>
       </nav>
     </aside>
