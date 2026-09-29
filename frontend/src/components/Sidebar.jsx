@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { BookOpen, Calendar, FileText, Settings, Menu, X } from 'lucide-react';
+import { BookOpen, Calendar, Settings, Menu, X, User } from 'lucide-react';
 
-export default function Sidebar({ activeView, setActiveView, collapsed = false, onBackToRamos }) {
+export default function Sidebar({ activeView, setActiveView, collapsed = false, onBackToRamos, currentUser }) {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const handleSelect = (view) => {
@@ -86,19 +86,6 @@ export default function Sidebar({ activeView, setActiveView, collapsed = false, 
             <span className="sidebar-nav-label">Calendario</span>
           </button>
 
-          <button
-            onClick={() => handleSelect('summary')}
-            title="Resumen"
-            className={`sidebar-nav-item ${collapsed ? 'collapsed' : ''} ${activeView === 'summary' ? 'active' : ''}`}
-            style={{
-              ...styles.navItem,
-              ...(collapsed ? styles.navItemCollapsed : {}),
-              ...(activeView === 'summary' ? styles.navItemActive : {})
-            }}
-          >
-            <FileText size={18} style={styles.navIcon} />
-            <span className="sidebar-nav-label">Resumen</span>
-          </button>
 
           <button
             onClick={() => handleSelect('settings')}
@@ -114,6 +101,38 @@ export default function Sidebar({ activeView, setActiveView, collapsed = false, 
             <span className="sidebar-nav-label">Configuración</span>
           </button>
         </nav>
+
+        {/* User Profile Chip */}
+        {currentUser && (
+          <div 
+            onClick={() => handleSelect('settings')}
+            title={`Conectado como ${currentUser.name || 'Estudiante'} (N° ${currentUser.student_number || 'S/N'} - ${currentUser.email || ''})`}
+            style={{
+              ...styles.userChip,
+              ...(collapsed ? styles.userChipCollapsed : {})
+            }}
+          >
+            {currentUser.avatar_url ? (
+              <img 
+                src={currentUser.avatar_url} 
+                alt={currentUser.name || 'Avatar'} 
+                style={styles.userAvatar} 
+              />
+            ) : (
+              <div style={styles.userAvatarFallback}>
+                <User size={14} color="var(--color-text-secondary)" />
+              </div>
+            )}
+            {!collapsed && (
+              <div style={styles.userInfoText}>
+                <span style={styles.userName}>{currentUser.short_name || currentUser.name || 'Estudiante UC'}</span>
+                <span style={styles.userEmail}>
+                  {currentUser.student_number ? `${currentUser.student_number} • ${currentUser.email}` : (currentUser.email || 'Canvas UC')}
+                </span>
+              </div>
+            )}
+          </div>
+        )}
 
         {/* Footer Editorial Credits */}
         <div 
@@ -243,5 +262,62 @@ const styles = {
     fontFamily: 'var(--font-mono)',
     fontSize: '11px',
     color: 'var(--color-text-muted)'
+  },
+  userChip: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '10px',
+    padding: '8px 10px',
+    borderRadius: '8px',
+    backgroundColor: 'var(--color-surface-bg)',
+    border: '1px solid var(--color-border)',
+    cursor: 'pointer',
+    marginBottom: '12px',
+    transition: 'all 0.15s ease'
+  },
+  userChipCollapsed: {
+    justifyContent: 'center',
+    padding: '6px',
+    marginBottom: '12px'
+  },
+  userAvatar: {
+    width: '28px',
+    height: '28px',
+    borderRadius: '50%',
+    objectFit: 'cover',
+    border: '1px solid var(--color-border)',
+    flexShrink: 0
+  },
+  userAvatarFallback: {
+    width: '28px',
+    height: '28px',
+    borderRadius: '50%',
+    backgroundColor: 'var(--color-elevated-surface)',
+    border: '1px solid var(--color-border)',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexShrink: 0
+  },
+  userInfoText: {
+    display: 'flex',
+    flexDirection: 'column',
+    overflow: 'hidden'
+  },
+  userName: {
+    fontSize: '12px',
+    fontWeight: 600,
+    color: 'var(--color-text-primary)',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis'
+  },
+  userEmail: {
+    fontSize: '10px',
+    color: 'var(--color-text-muted)',
+    fontFamily: 'var(--font-mono)',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis'
   }
 };

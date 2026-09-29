@@ -6,7 +6,6 @@ import CourseGeneralView from './components/CourseGeneralView';
 import CourseTasksView from './components/CourseTasksView';
 import CourseGradesView from './components/CourseGradesView';
 import CalendarView from './components/CalendarView';
-import SummaryView from './components/SummaryView';
 import OnboardingModal from './components/OnboardingModal';
 import { ThemeSelector } from './components/ThemeSelector';
 import { loadWorkspaceCourses } from './utils/courseLoader';
@@ -86,9 +85,6 @@ export default function App() {
             {activeView === 'calendar' && (
               <CalendarView />
             )}
-            {activeView === 'summary' && (
-              <SummaryView />
-            )}
             {activeView === 'settings' && (
               <div style={styles.settingsContainer}>
                 <div style={styles.settingsHeader}>
@@ -133,6 +129,11 @@ export default function App() {
                         <div style={styles.accountDetails}>
                           <div style={styles.accountName}>{auth.user?.name || 'Estudiante UC'}</div>
                           <div style={styles.accountEmail}>{auth.user?.email || 'estudiante@uc.cl'}</div>
+                          {auth.user?.student_number && (
+                            <div style={styles.accountStudentNumber}>
+                              N° Alumno: <strong>{auth.user.student_number}</strong>
+                            </div>
+                          )}
                         </div>
                       </div>
 
@@ -295,6 +296,12 @@ const styles = {
     color: 'var(--color-text-muted)',
     fontFamily: 'var(--font-mono)',
     marginTop: '2px'
+  },
+  accountStudentNumber: {
+    fontSize: '11px',
+    color: 'var(--color-action-primary)',
+    fontFamily: 'var(--font-mono)',
+    marginTop: '3px'
   },
   tokenRow: {
     display: 'flex',
